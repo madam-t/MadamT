@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-red: #d85d5d;
+  --color-brand-black: #000000;
+  --color-brand-white: #ffffff;
+  --color-brand-surface: #111111;
+  --color-brand-surface-border: #262626;
+  --font-sans: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+:root {
+  --brand-red: #d85d5d;
+  --brand-black: #000000;
+  --brand-white: #ffffff;
+  --brand-surface: #111111;
+  --brand-surface-border: #262626;
+  --background: #000000;
+  --foreground: #ffffff;
+}
+
+/* Enforce smooth scrolling across the entire application */
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+/* Dark-mode-first aesthetic with crisp font rendering */
+body {
+  background-color: var(--brand-black);
+  color: var(--brand-white);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Sharp high-contrast typography defaults */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--brand-white);
+  letter-spacing: -0.025em;
+  font-weight: 700;
+}
+
+p {
+  color: #a3a3a3;
+  line-height: 1.6;
+}
+
+/* Utility classes for Madam T Brand System */
+.bg-brand-surface {
+  background-color: var(--brand-surface);
+}
+
+.border-brand-surface-border {
+  border-color: var(--brand-surface-border);
+}
+
+.text-brand-red {
+  color: var(--brand-red);
+}
+
+.bg-brand-red {
+  background-color: var(--brand-red);
+}
+
+/* Custom glow and glassmorphism helpers */
+.brand-card-glow {
+  box-shadow: 0 0 40px -10px rgba(216, 93, 93, 0.15);
+}
+
+.brand-surface-card {
+  background-color: #111111;
+  border: 1px solid #262626;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.brand-surface-card:hover {
+  border-color: #d85d5d;
+}
+
+/* Custom dark scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d85d5d;
+}
