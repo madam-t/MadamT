@@ -185,7 +185,7 @@ export default function Home() {
       {/* Main Content Sections */}
       <main className="flex-1">
         {/* 2. Hero Section */}
-        <section className="relative pt-16 pb-20 px-6 max-w-7xl mx-auto overflow-hidden">
+        <section className="relative pt-10 pb-12 px-6 max-w-7xl mx-auto overflow-hidden">
           {/* Subtle Ambient Red Glow */}
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] bg-brand/10 rounded-full blur-[140px] pointer-events-none" />
 
@@ -243,8 +243,8 @@ export default function Home() {
         </section>
 
         {/* 3. Portfolio & Case Studies Section (Featured First) */}
-        <section id="portfolio" className="scroll-mt-24 py-24 px-6 max-w-7xl mx-auto">
-          <div className="mb-14 text-center space-y-3">
+        <section id="portfolio" className="scroll-mt-24 py-14 md:py-16 px-6 max-w-7xl mx-auto">
+          <div className="mb-10 text-center space-y-3">
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">
               The Work &amp; The Proof
             </h2>
@@ -324,7 +324,7 @@ export default function Home() {
         </section>
 
         {/* 4. 'About Madam T' Bio Section */}
-        <section id="about" className="scroll-mt-24 py-20 px-6 max-w-7xl mx-auto">
+        <section id="about" className="scroll-mt-24 py-14 md:py-16 px-6 max-w-7xl mx-auto">
           <div className="rounded-3xl bg-gradient-to-b from-surface to-surface-deep border border-line p-8 md:p-14 relative overflow-hidden shadow-2xl space-y-10">
             {/* Top Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-line pb-8">
@@ -432,7 +432,7 @@ export default function Home() {
         </section>
 
         {/* 5. Interactive Section: The Synergy Diagnostic */}
-        <section id="diagnostic" className="scroll-mt-24 py-24 px-6 max-w-7xl mx-auto space-y-10">
+        <section id="diagnostic" className="scroll-mt-24 py-14 md:py-16 px-6 max-w-7xl mx-auto space-y-8">
           <div className="text-center space-y-3">
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">
               Operational Synergy Diagnostic
@@ -446,7 +446,7 @@ export default function Home() {
         </section>
 
         {/* 6. Bookings & Contact Section */}
-        <section id="booking" className="scroll-mt-24 py-24 px-6 max-w-7xl mx-auto">
+        <section id="booking" className="scroll-mt-24 py-14 md:py-16 px-6 max-w-7xl mx-auto">
           <div className="rounded-3xl bg-gradient-to-r from-surface-2 via-surface to-surface-2 border border-brand/40 p-8 md:p-14 relative overflow-hidden shadow-2xl text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-10">
             <div className="space-y-4 max-w-2xl">
               <div className="inline-flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-widest text-brand-ink">

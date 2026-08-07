@@ -94,7 +94,7 @@ export const PORTFOLIO_DATA: PortfolioItem[] = [
     client: "Ivoire Africa",
     category: "Web Engineering",
     summary:
-      "Developed a modern full-stack corporate web presence for established business consulting and cash loan operations.",
+      "Engineered a high-performance investment group platform designed for strategic investor positioning.",
     problem:
       "Established business consulting and cash loan firm needed modern web presence.",
     solution:
@@ -117,7 +117,7 @@ export const PORTFOLIO_DATA: PortfolioItem[] = [
     client: "Eshham Investment Group",
     category: "Web Engineering",
     summary:
-      "Engineered a high-performance investment group platform designed for strategic investor positioning.",
+      "Developed a modern full-stack corporate web presence for established business consulting and cash loan operations.",
     problem: "Startup investment group required dynamic launch platform.",
     solution:
       "High-performance custom web platform designed for investor positioning.",
