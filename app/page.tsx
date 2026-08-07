@@ -7,7 +7,6 @@ import {
   ArrowRight,
   ExternalLink,
   Mail,
-  MapPin,
   Calendar as CalendarIcon,
   ArrowUp,
   CheckCircle2,
@@ -96,7 +95,7 @@ export default function Home() {
               M
             </div>
             <span className="font-extrabold tracking-wider text-base md:text-lg uppercase">
-              MADAM T <span className="text-brand-ink">HOLDINGS</span>
+              MADAM <span className="text-brand-ink">HOLDINGS</span>
             </span>
           </motion.div>
 
@@ -456,7 +455,7 @@ export default function Home() {
                 Ready to Take the Weight Off Your Shoulders?
               </h2>
               <p className="text-ink-muted text-sm md:text-base leading-relaxed">
-                Let’s discuss your project goals and see how we can streamline your business. The initial 60-minute consultation is completely free.
+                Let’s discuss your business. The initial 60-minute consultation is completely free.
               </p>
 
               {/* Direct Info Pills */}
@@ -468,10 +467,6 @@ export default function Home() {
                   <Mail className="w-4 h-4 text-brand-ink" />
                   <span>info@madamholdings.com</span>
                 </a>
-                <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-surface-deep border border-line">
-                  <MapPin className="w-4 h-4 text-brand-ink" />
-                  <span>Windhoek, Namibia</span>
-                </div>
               </div>
             </div>
 
@@ -503,7 +498,7 @@ export default function Home() {
               M
             </div>
             <span className="font-semibold text-ink-muted">
-              &copy; 2026 Madam T Holdings. Registered in Namibia.
+              &copy; 2026 Madam T Holdings PTY Ltd. Registered in Namibia
             </span>
           </div>
 

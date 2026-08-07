@@ -706,7 +706,7 @@ export default function SynergyDiagnostic({
           <span className="w-2 h-2 rounded-full bg-brand" />
           <span>STATUS: READY</span>
         </div>
-        <div>MADAM T HOLDINGS &bull; ACCENT #d85d5d</div>
+        <div>MADAM HOLDINGS &bull; ACCENT #d85d5d</div>
       </div>
     </div>
   );

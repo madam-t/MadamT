@@ -13,16 +13,16 @@ const inter = Inter({
 
 const siteUrl = "https://madamholdings.com";
 const siteTitle =
-  "Madam T Holdings | Strategic Ventures & Portfolio Management";
+  "Madam Holdings | Strategic Ventures & Portfolio Management";
 const siteDescription =
-  "Official digital portal for Madam T Holdings (madamholdings.com). Spearheading high-growth investments, brand creation, and strategic enterprise management.";
+  "Official digital portal for Madam Holdings (madamholdings.com). Spearheading high-growth investments, brand creation, and strategic enterprise management.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: siteTitle,
   description: siteDescription,
   keywords: [
-    "Madam T Holdings",
+    "Madam Holdings",
     "madamholdings.com",
     "Venture Capital",
     "Strategic Holdings",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: siteUrl,
-    siteName: "Madam T Holdings",
+    siteName: "Madam Holdings",
     title: siteTitle,
     description: siteDescription,
     locale: "en_US",
