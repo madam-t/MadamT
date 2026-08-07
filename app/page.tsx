@@ -462,11 +462,11 @@ export default function Home() {
               {/* Direct Info Pills */}
               <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 pt-2 text-xs font-mono text-ink-muted">
                 <a
-                  href="mailto:tjimunen@gmail.com"
+                  href="mailto:info@madamholdings.com"
                   className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-surface-deep border border-line hover:border-brand transition-colors"
                 >
                   <Mail className="w-4 h-4 text-brand-ink" />
-                  <span>tjimunen@gmail.com</span>
+                  <span>info@madamholdings.com</span>
                 </a>
                 <div className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-surface-deep border border-line">
                   <MapPin className="w-4 h-4 text-brand-ink" />
