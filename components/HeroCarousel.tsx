@@ -1,7 +1,13 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import Image from "next/image";
+import {
+  motion,
+  AnimatePresence,
+  useReducedMotion,
+  type Variants,
+} from "framer-motion";
 import {
   ChevronLeft,
   ChevronRight,
@@ -14,6 +20,11 @@ import {
   Play,
 } from "lucide-react";
 
+interface SlidePhoto {
+  src: string;
+  alt: string;
+}
+
 interface SlideData {
   id: string;
   tag: string;
@@ -23,6 +34,9 @@ interface SlideData {
   icon: typeof Camera;
   gradient: string;
   visualType: "ocr" | "design" | "logistics";
+  photos: SlidePhoto[];
+  /** Drives the photo composition, so shots keep their natural crop. */
+  photoLayout: "portrait" | "landscape";
 }
 
 const CAROUSEL_SLIDES: SlideData[] = [
@@ -36,32 +50,140 @@ const CAROUSEL_SLIDES: SlideData[] = [
     icon: Camera,
     gradient: "from-brand/15 via-transparent to-transparent",
     visualType: "ocr",
+    photoLayout: "portrait",
+    photos: [
+      {
+        src: "/slides/field-data-1.webp",
+        alt: "Capturing patient records on a laptop at a field station",
+      },
+      {
+        src: "/slides/field-data-2.webp",
+        alt: "Digitising captured field records into a cloud spreadsheet",
+      },
+    ],
   },
   {
     id: "workshops",
     tag: "Design Thinking & Strategy",
-    title: "Leading Strategic Workshops",
+    title: "Leading Interactive Workshops",
     subtitle:
-      "Applying UCT Marketing & Hasso Plattner Design Thinking principles to align multi-country stakeholders and solve complex problems.",
-    location: "Cape Town & Remote Incubators",
+      "Applying material from the UCT Hasso Plattner Design Thinking principles to lead a full day Design Thinking Dash with Fellows of the Allan Gray Orbis Foundation.",
+    location: "Allan Gray Namibia Fellows",
     icon: Users,
     gradient: "from-transparent via-brand/12 to-transparent",
     visualType: "design",
+    photoLayout: "landscape",
+    photos: [
+      {
+        src: "/slides/workshops-1.webp",
+        alt: "Madam T presenting during a Design Thinking Dash workshop",
+      },
+      {
+        src: "/slides/workshops-2.webp",
+        alt: "Madam T facilitating a group session with Allan Gray Fellows",
+      },
+    ],
   },
   {
     id: "event-coordination",
     tag: "Cross-Border Logistics",
     title: "Multi-Country Event Oversight",
     subtitle:
-      "Managing complex station rotations for 600+ students and coordinating Fellow teams across Namibia, Eswatini, and Botswana.",
+      "Planning, coordinating and executing events across 3 countries with over 150 delegates on consecutive weekends.",
     location: "Southern Africa Operations",
     icon: Globe2,
     gradient: "from-brand/10 via-transparent to-brand/5",
     visualType: "logistics",
+    photoLayout: "portrait",
+    photos: [
+      {
+        src: "/slides/events-1.webp",
+        alt: "Madam T presenting at a lectern during a multi-country event",
+      },
+      {
+        src: "/slides/events-2.webp",
+        alt: "Madam T briefing delegates at an event planning session",
+      },
+    ],
   },
 ];
 
 const pad = (n: number) => String(n).padStart(2, "0");
+
+/*
+ * Photo composition for the active slide.
+ *
+ * The panel is a fixed-height box and each card is placed inside it as a
+ * percentage. Sizing the cards by aspect-ratio instead made the landscape
+ * slide 200px taller than the portrait ones, so the whole carousel resized
+ * as it advanced. Percentages of a shared box keep every slide identical
+ * while still giving each orientation a crop close to its native ratio.
+ */
+const PHOTO_FRAMES: Record<
+  SlideData["photoLayout"],
+  { className: string; sizes: string }[]
+> = {
+  portrait: [
+    { className: "top-0 left-0 w-[47%] h-[86%]", sizes: "(min-width: 1024px) 190px, 45vw" },
+    { className: "bottom-0 right-0 w-[47%] h-[86%]", sizes: "(min-width: 1024px) 190px, 45vw" },
+  ],
+  landscape: [
+    { className: "top-0 right-0 w-[86%] h-[62%]", sizes: "(min-width: 1024px) 345px, 80vw" },
+    { className: "bottom-0 left-0 w-[52%] h-[46%] z-10", sizes: "(min-width: 1024px) 210px, 50vw" },
+  ],
+};
+
+function SlidePhotos({ slide }: { slide: SlideData }) {
+  const prefersReducedMotion = useReducedMotion();
+  const frames = PHOTO_FRAMES[slide.photoLayout];
+
+  const container: Variants = {
+    hidden: {},
+    visible: {
+      transition: { staggerChildren: 0.12, delayChildren: 0.08 },
+    },
+  };
+
+  const item: Variants = prefersReducedMotion
+    ? { hidden: { opacity: 0 }, visible: { opacity: 1 } }
+    : {
+        hidden: { opacity: 0, y: 20, scale: 0.96 },
+        visible: {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
+        },
+      };
+
+  return (
+    <motion.div
+      key={slide.id}
+      variants={container}
+      initial="hidden"
+      animate="visible"
+      className="relative mx-auto w-full max-w-[420px] lg:max-w-none h-[320px] sm:h-[340px]"
+    >
+      {slide.photos.map((photo, i) => (
+        <motion.div
+          key={photo.src}
+          variants={item}
+          className={`absolute overflow-hidden rounded-xl border border-line bg-surface shadow-xl ${
+            frames[i]?.className ?? frames[0].className
+          }`}
+        >
+          <Image
+            src={photo.src}
+            alt={photo.alt}
+            fill
+            sizes={frames[i]?.sizes ?? frames[0].sizes}
+            className="object-cover"
+          />
+        </motion.div>
+      ))}
+    </motion.div>
+  );
+}
 
 export default function HeroCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -158,78 +280,85 @@ export default function HeroCarousel() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Content Header & Badges */}
-        <div className="space-y-4 max-w-2xl z-10">
-          <div className="flex flex-wrap items-center gap-3">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand/15 border border-brand/30 text-brand-ink text-xs font-mono font-semibold uppercase tracking-wider">
-              <SlideIcon className="w-3.5 h-3.5" />
-              {currentSlide.tag}
-            </span>
-            <span className="inline-flex items-center gap-1 text-xs font-mono text-ink-subtle">
-              <MapPin className="w-3 h-3 text-brand-ink" />
-              {currentSlide.location}
-            </span>
+        {/* Slide body: copy on the left, photography on the right */}
+        <div className="relative z-10 flex-1 grid lg:grid-cols-[minmax(0,1fr)_minmax(0,400px)] gap-8 lg:gap-12 items-center">
+          {/* Left column: copy + the mock data panel */}
+          <div className="space-y-6">
+            <div className="space-y-4 max-w-2xl">
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand/15 border border-brand/30 text-brand-ink text-xs font-mono font-semibold uppercase tracking-wider">
+                  <SlideIcon className="w-3.5 h-3.5" />
+                  {currentSlide.tag}
+                </span>
+                <span className="inline-flex items-center gap-1 text-xs font-mono text-ink-subtle">
+                  <MapPin className="w-3 h-3 text-brand-ink" />
+                  {currentSlide.location}
+                </span>
+              </div>
+
+              <h3 className="text-2xl md:text-4xl font-extrabold text-ink tracking-tight leading-tight">
+                {currentSlide.title}
+              </h3>
+
+              <p className="text-sm md:text-base text-ink-muted leading-relaxed font-normal">
+                {currentSlide.subtitle}
+              </p>
+            </div>
+
+            {/* Interactive Visual Element Graphics */}
+            <div>
+              {currentSlide.visualType === "ocr" && (
+                <div className="p-4 rounded-xl bg-surface/80 border border-line max-w-md font-mono text-xs text-ink-muted space-y-2">
+                  <div className="flex items-center justify-between text-[11px] text-brand-ink border-b border-line pb-1.5 font-bold">
+                    <span>[LIVE OCR DATA STREAM]</span>
+                    <span>STATUS: 750+ RECORDS DIGITIZED</span>
+                  </div>
+                  <div className="space-y-1 text-[11px]">
+                    <div className="text-ink-subtle">&gt; Scanning Tablet Image... OK</div>
+                    <div className="text-ink-subtle">&gt; Gemini API Extracting Fields... 100%</div>
+                    <div className="text-success">&gt; Auto-Populated Google Sheet Record #0749</div>
+                  </div>
+                </div>
+              )}
+
+              {currentSlide.visualType === "design" && (
+                <div className="p-4 rounded-xl bg-surface/80 border border-line max-w-md font-mono text-xs space-y-2">
+                  <div className="flex items-center justify-between text-[11px] text-brand-ink border-b border-line pb-1.5 font-bold">
+                    <span>[DESIGN THINKING MATRIX]</span>
+                    <span>UCT MARKETING HONOURS</span>
+                  </div>
+                  <div className="grid grid-cols-3 gap-2 text-center text-[10px]">
+                    <div className="p-2 rounded bg-surface-2 border border-line text-ink-muted">Empathize & Define</div>
+                    <div className="p-2 rounded bg-surface-2 border border-brand/40 text-brand-ink">Ideate & Prototype</div>
+                    <div className="p-2 rounded bg-surface-2 border border-line text-ink-muted">Test & Scale</div>
+                  </div>
+                </div>
+              )}
+
+              {currentSlide.visualType === "logistics" && (
+                <div className="p-4 rounded-xl bg-surface/80 border border-line max-w-md font-mono text-xs space-y-2">
+                  <div className="flex items-center justify-between text-[11px] text-brand-ink border-b border-line pb-1.5 font-bold">
+                    <span>[CROSS-BORDER CORRIDOR]</span>
+                    <span>3 NATIONS • ZERO DELAYS</span>
+                  </div>
+                  <div className="flex items-center justify-between text-ink-muted text-[11px] pt-1">
+                    <span>Namibia</span>
+                    <span className="text-brand-ink">&rarr;</span>
+                    <span>Botswana</span>
+                    <span className="text-brand-ink">&rarr;</span>
+                    <span>Eswatini</span>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
 
-          <h3 className="text-2xl md:text-4xl font-extrabold text-ink tracking-tight leading-tight">
-            {currentSlide.title}
-          </h3>
-
-          <p className="text-sm md:text-base text-ink-muted leading-relaxed font-normal">
-            {currentSlide.subtitle}
-          </p>
-        </div>
-
-        {/* Interactive Visual Element Graphics */}
-        <div className="my-6 z-10">
-          {currentSlide.visualType === "ocr" && (
-            <div className="p-4 rounded-xl bg-surface/80 border border-line max-w-md font-mono text-xs text-ink-muted space-y-2">
-              <div className="flex items-center justify-between text-[11px] text-brand-ink border-b border-line pb-1.5 font-bold">
-                <span>[LIVE OCR DATA STREAM]</span>
-                <span>STATUS: 750+ RECORDS DIGITIZED</span>
-              </div>
-              <div className="space-y-1 text-[11px]">
-                <div className="text-ink-subtle">&gt; Scanning Tablet Image... OK</div>
-                <div className="text-ink-subtle">&gt; Gemini API Extracting Fields... 100%</div>
-                <div className="text-success">&gt; Auto-Populated Google Sheet Record #0749</div>
-              </div>
-            </div>
-          )}
-
-          {currentSlide.visualType === "design" && (
-            <div className="p-4 rounded-xl bg-surface/80 border border-line max-w-md font-mono text-xs space-y-2">
-              <div className="flex items-center justify-between text-[11px] text-brand-ink border-b border-line pb-1.5 font-bold">
-                <span>[DESIGN THINKING MATRIX]</span>
-                <span>UCT MARKETING HONOURS</span>
-              </div>
-              <div className="grid grid-cols-3 gap-2 text-center text-[10px]">
-                <div className="p-2 rounded bg-surface-2 border border-line text-ink-muted">Empathize & Define</div>
-                <div className="p-2 rounded bg-surface-2 border border-brand/40 text-brand-ink">Ideate & Prototype</div>
-                <div className="p-2 rounded bg-surface-2 border border-line text-ink-muted">Test & Scale</div>
-              </div>
-            </div>
-          )}
-
-          {currentSlide.visualType === "logistics" && (
-            <div className="p-4 rounded-xl bg-surface/80 border border-line max-w-md font-mono text-xs space-y-2">
-              <div className="flex items-center justify-between text-[11px] text-brand-ink border-b border-line pb-1.5 font-bold">
-                <span>[CROSS-BORDER CORRIDOR]</span>
-                <span>3 NATIONS • ZERO DELAYS</span>
-              </div>
-              <div className="flex items-center justify-between text-ink-muted text-[11px] pt-1">
-                <span>Namibia</span>
-                <span className="text-brand-ink">&rarr;</span>
-                <span>Botswana</span>
-                <span className="text-brand-ink">&rarr;</span>
-                <span>Eswatini</span>
-              </div>
-            </div>
-          )}
-
+          {/* Right column: real photography from the engagement */}
+          <SlidePhotos slide={currentSlide} />
         </div>
 
         {/* Carousel Bottom Controls & Indicators */}
-        <div className="pt-4 border-t border-line flex items-center justify-between z-10">
+        <div className="pt-4 mt-6 border-t border-line flex items-center justify-between z-10">
           {/* Accent Indicator Dots */}
           <div className="flex items-center gap-2">
             {CAROUSEL_SLIDES.map((slide, idx) => (

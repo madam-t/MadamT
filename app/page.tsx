@@ -19,12 +19,15 @@ import {
 } from "lucide-react";
 import HeroCarousel from "@/components/HeroCarousel";
 import ThemeToggle from "@/components/ThemeToggle";
+import LaunchOffer from "@/components/LaunchOffer";
+import LaunchOfferBar from "@/components/LaunchOfferBar";
 import PortfolioModal from "@/components/PortfolioModal";
 import SynergyDiagnostic from "@/components/SynergyDiagnostic";
 import { PORTFOLIO_DATA, PortfolioItem } from "@/data/portfolioData";
 
 const NAV_LINKS: { id: string; label: string }[] = [
   { id: "portfolio", label: "Portfolio" },
+  { id: "offer", label: "Launch Offer" },
   { id: "about", label: "About Madam T" },
   { id: "diagnostic", label: "Diagnostic" },
   { id: "booking", label: "Book a Call" },
@@ -78,6 +81,9 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-canvas text-ink flex flex-col justify-between selection:bg-brand selection:text-on-brand font-sans">
+      {/* 0. Launch promotion strip — scrolls away above the sticky header */}
+      <LaunchOfferBar onView={() => scrollToSection("offer")} />
+
       {/* 1. Navigation Bar */}
       <header className="sticky top-0 z-50 backdrop-blur-xl bg-canvas/85 border-b border-line">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
@@ -100,7 +106,7 @@ export default function Home() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="hidden md:flex items-center gap-8 text-sm font-medium text-ink-subtle"
+            className="hidden lg:flex items-center gap-8 text-sm font-medium text-ink-subtle"
           >
             {NAV_LINKS.map((link) => (
               <button
@@ -131,11 +137,11 @@ export default function Home() {
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
 
-            {/* Mobile menu toggle — below md the nav links have no other entry point */}
+            {/* Mobile menu toggle — below lg the nav links have no other entry point */}
             <button
               type="button"
               onClick={() => setIsMobileNavOpen((open) => !open)}
-              className="md:hidden w-10 h-10 rounded-xl border border-line bg-surface text-ink-muted hover:border-brand hover:text-brand-ink flex items-center justify-center transition-all cursor-pointer"
+              className="lg:hidden w-10 h-10 rounded-xl border border-line bg-surface text-ink-muted hover:border-brand hover:text-brand-ink flex items-center justify-center transition-all cursor-pointer"
               aria-label={isMobileNavOpen ? "Close menu" : "Open menu"}
               aria-expanded={isMobileNavOpen}
               aria-controls="mobile-nav"
@@ -159,7 +165,7 @@ export default function Home() {
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="md:hidden overflow-hidden border-t border-line bg-canvas/95"
+              className="lg:hidden overflow-hidden border-t border-line bg-canvas/95"
             >
               <div className="px-6 py-4 flex flex-col gap-1">
                 {NAV_LINKS.map((link) => (
@@ -319,7 +325,13 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 4. 'About Madam T' Bio Section */}
+        {/* 4. Launch Offer — placed straight after the proof, while the work
+            is still fresh and before the longer bio and diagnostic. */}
+        <section id="offer" className="scroll-mt-24 py-14 md:py-16 px-6 max-w-7xl mx-auto">
+          <LaunchOffer calendarUrl={calendarBookingUrl} />
+        </section>
+
+        {/* 5. 'About Madam T' Bio Section */}
         <section id="about" className="scroll-mt-24 py-14 md:py-16 px-6 max-w-7xl mx-auto">
           <div className="rounded-3xl bg-gradient-to-b from-surface to-surface-deep border border-line p-8 md:p-14 relative overflow-hidden shadow-2xl space-y-10">
             {/* Top Header */}

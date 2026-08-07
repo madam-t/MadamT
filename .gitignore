@@ -39,3 +39,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Raw photo exports (~35MB of full-resolution originals). The web-ready
+# versions live in public/slides/ and ARE committed; keep the originals out
+# of git history. Safe to delete locally once you have them backed up.
+#
+# Matched on the "Slide N - " export naming rather than "Slide*", because
+# git runs case-insensitively here and "Slide*" also swallows public/slides/.
+/public/Slide [0-9] - */
+!/public/slides/
