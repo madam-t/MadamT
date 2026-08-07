@@ -8,7 +8,6 @@ import {
   Camera,
   Users,
   Globe2,
-  Code2,
   Sparkles,
   MapPin,
   Pause,
@@ -22,9 +21,8 @@ interface SlideData {
   subtitle: string;
   location: string;
   icon: typeof Camera;
-  accentBg: string;
   gradient: string;
-  visualType: "ocr" | "design" | "logistics" | "code";
+  visualType: "ocr" | "design" | "logistics";
 }
 
 const CAROUSEL_SLIDES: SlideData[] = [
@@ -36,7 +34,6 @@ const CAROUSEL_SLIDES: SlideData[] = [
       "Deploying offline tablet photo-capture workflows & Gemini API OCR to eliminate manual data entry backlogs for medical volunteers.",
     location: "Medic Rush 2026 • Hochland",
     icon: Camera,
-    accentBg: "from-[#d85d5d]/20 to-transparent",
     gradient: "from-brand/15 via-transparent to-transparent",
     visualType: "ocr",
   },
@@ -48,7 +45,6 @@ const CAROUSEL_SLIDES: SlideData[] = [
       "Applying UCT Marketing & Hasso Plattner Design Thinking principles to align multi-country stakeholders and solve complex problems.",
     location: "Cape Town & Remote Incubators",
     icon: Users,
-    accentBg: "from-[#d85d5d]/15 to-transparent",
     gradient: "from-transparent via-brand/12 to-transparent",
     visualType: "design",
   },
@@ -60,21 +56,8 @@ const CAROUSEL_SLIDES: SlideData[] = [
       "Managing complex station rotations for 600+ students and coordinating Fellow teams across Namibia, Eswatini, and Botswana.",
     location: "Southern Africa Operations",
     icon: Globe2,
-    accentBg: "from-[#d85d5d]/20 to-transparent",
     gradient: "from-brand/10 via-transparent to-brand/5",
     visualType: "logistics",
-  },
-  {
-    id: "dev-sessions",
-    tag: "Remote Web & Tech Engineering",
-    title: "Deep-Work Development Sessions",
-    subtitle:
-      "Leading software delivery alongside a 2-person engineering unit to ship Next.js platforms and custom Google Workspace tools.",
-    location: "Remote Dev Lab • Windhoek",
-    icon: Code2,
-    accentBg: "from-[#d85d5d]/25 to-transparent",
-    gradient: "from-brand/20 via-transparent to-transparent",
-    visualType: "code",
   },
 ];
 
@@ -243,20 +226,6 @@ export default function HeroCarousel() {
             </div>
           )}
 
-          {currentSlide.visualType === "code" && (
-            <div className="p-4 rounded-xl bg-surface/80 border border-line max-w-md font-mono text-xs space-y-2">
-              <div className="flex items-center justify-between text-[11px] text-brand-ink border-b border-line pb-1.5 font-bold">
-                <span>[ENGINEERING TECH STACK]</span>
-                <span>MADAM T + 2 SOFTWARE DEVS</span>
-              </div>
-              <div className="flex flex-wrap gap-1.5 pt-1">
-                <span className="px-2 py-0.5 rounded bg-surface-2 text-ink-muted border border-line">Next.js 16</span>
-                <span className="px-2 py-0.5 rounded bg-surface-2 text-ink-muted border border-line">TypeScript</span>
-                <span className="px-2 py-0.5 rounded bg-surface-2 text-ink-muted border border-line">Tailwind CSS</span>
-                <span className="px-2 py-0.5 rounded bg-brand/20 text-brand-ink border border-brand/40">Apps Script</span>
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Carousel Bottom Controls & Indicators */}

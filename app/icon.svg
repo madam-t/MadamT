@@ -1,10 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Madam Holdings">
   <title>Madam Holdings</title>
   <!--
-    Favicon mark. The M is a path, not text, so it renders identically
-    without depending on a font being available, and stays legible at 16px.
-    Brand red badge with a black counter matches the site's dark-mode header.
+    Favicon mark — kept in sync with public/logo-mark.svg (the light variant:
+    white counter on the brand red badge).
+
+    The M is a path, not text, so it renders identically without depending on
+    a font being available, and stays legible at 16px. app/favicon.ico is
+    rasterised from this file, so regenerate it after any change here.
   -->
   <rect width="64" height="64" rx="14" fill="#d85d5d"/>
-  <path d="M14 46 H21 V26 L32 46 L43 26 V46 H50 V18 H40 L32 37 L24 18 H14 Z" fill="#000000"/>
+  <path d="M14 46 H21 V26 L32 46 L43 26 V46 H50 V18 H40 L32 37 L24 18 H14 Z" fill="#ffffff"/>
 </svg>

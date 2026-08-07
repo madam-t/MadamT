@@ -406,7 +406,7 @@ export default function Home() {
                   <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[120%] h-2/3 bg-brand/10 blur-[90px] rounded-full pointer-events-none" />
 
                   <Image
-                    src="/Madam-T.png"
+                    src="/Madam-T-2.png"
                     alt="Portrait of Madam T"
                     fill
                     sizes="(min-width: 1024px) 40vw, (min-width: 640px) 60vw, 90vw"
