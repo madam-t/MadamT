@@ -1,100 +1,180 @@
 @import "tailwindcss";
 
+/* Class-based dark mode driven by <html class="dark">, set before paint. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Runtime theme tokens.
+ *
+ * `@theme inline` makes each utility emit `var(--token)` instead of a snapshot
+ * of the token's value, so flipping the `.dark` class on <html> restyles the
+ * entire page. That is why components use semantic names (bg-surface,
+ * text-ink-muted) rather than dark:-variant pairs.
+ */
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-deep: var(--surface-deep);
+  --color-surface-hover: var(--surface-hover);
+
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-subtle: var(--ink-subtle);
+  --color-ink-faint: var(--ink-faint);
+
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-ink: var(--brand-ink);
+  --color-on-brand: var(--on-brand);
+
+  --color-success: var(--success);
+  --color-warn: var(--warn);
+}
+
 @theme {
-  --color-brand-red: #d85d5d;
-  --color-brand-black: #000000;
-  --color-brand-white: #ffffff;
-  --color-brand-surface: #111111;
-  --color-brand-surface-border: #262626;
-  --font-sans: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
+/*
+ * LIGHT (default). Layer ordering mirrors the dark palette inverted:
+ * canvas is the lightest plane, each nested surface steps darker.
+ */
 :root {
-  --brand-red: #d85d5d;
-  --brand-black: #000000;
-  --brand-white: #ffffff;
-  --brand-surface: #111111;
-  --brand-surface-border: #262626;
-  --background: #000000;
-  --foreground: #ffffff;
+  color-scheme: light;
+
+  --canvas: #ffffff;
+  --surface-deep: #fafafa;
+  --surface: #f4f4f5;
+  --surface-2: #e9e9ec;
+  --surface-hover: #ebebed;
+
+  --line: #e4e4e7;
+  --line-strong: #d4d4d8;
+
+  --ink: #09090b;
+  --ink-muted: #3f3f46;
+  --ink-subtle: #52525b;
+  --ink-faint: #71717a;
+
+  --brand: #d85d5d;
+  --brand-hover: #c44e4e;
+  /* Darkened so brand-coloured *text* stays legible on light surfaces. */
+  --brand-ink: #b34343;
+  --on-brand: #ffffff;
+
+  --success: #15803d;
+  --warn: #b45309;
 }
 
-/* Enforce smooth scrolling across the entire application */
-html {
-  scroll-behavior: smooth;
+/* DARK — the original brand palette from tasks.md. */
+.dark {
   color-scheme: dark;
+
+  --canvas: #000000;
+  --surface-deep: #0a0a0a;
+  --surface: #111111;
+  --surface-2: #18181b;
+  --surface-hover: #141414;
+
+  --line: #262626;
+  --line-strong: #3f3f46;
+
+  --ink: #ffffff;
+  --ink-muted: #d4d4d8;
+  --ink-subtle: #a1a1aa;
+  --ink-faint: #71717a;
+
+  --brand: #d85d5d;
+  --brand-hover: #c44e4e;
+  --brand-ink: #d85d5d;
+  --on-brand: #ffffff;
+
+  --success: #22c55e;
+  --warn: #eab308;
 }
 
-/* Dark-mode-first aesthetic with crisp font rendering */
-body {
-  background-color: var(--brand-black);
-  color: var(--brand-white);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  overflow-x: hidden;
-  min-height: 100vh;
-}
+/*
+ * Base element defaults MUST live in @layer base. Unlayered rules beat every
+ * layered rule regardless of specificity, so an unlayered `p { color }` would
+ * silently override every `text-*` utility applied to a paragraph.
+ */
+@layer base {
+  /* Enforce smooth scrolling across the entire application */
+  html {
+    scroll-behavior: smooth;
+  }
 
-/* Sharp high-contrast typography defaults */
-h1, h2, h3, h4, h5, h6 {
-  color: var(--brand-white);
-  letter-spacing: -0.025em;
-  font-weight: 700;
-}
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
 
-p {
-  color: #a3a3a3;
-  line-height: 1.6;
-}
+  body {
+    background-color: var(--canvas);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
 
-/* Utility classes for Madam T Brand System */
-.bg-brand-surface {
-  background-color: var(--brand-surface);
-}
+  /* Sharp high-contrast typography defaults */
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--ink);
+    letter-spacing: -0.025em;
+    font-weight: 700;
+  }
 
-.border-brand-surface-border {
-  border-color: var(--brand-surface-border);
-}
+  p {
+    color: var(--ink-subtle);
+    line-height: 1.6;
+  }
 
-.text-brand-red {
-  color: var(--brand-red);
-}
-
-.bg-brand-red {
-  background-color: var(--brand-red);
+  /* Visible keyboard focus on the brand accent */
+  :focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+  }
 }
 
 /* Custom glow and glassmorphism helpers */
-.brand-card-glow {
-  box-shadow: 0 0 40px -10px rgba(216, 93, 93, 0.15);
+@layer components {
+  .brand-card-glow {
+    box-shadow: 0 0 40px -10px color-mix(in oklab, var(--brand) 15%, transparent);
+  }
+
+  .brand-surface-card {
+    background-color: var(--surface);
+    border: 1px solid var(--line);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .brand-surface-card:hover {
+    border-color: var(--brand);
+  }
 }
 
-.brand-surface-card {
-  background-color: #111111;
-  border: 1px solid #262626;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.brand-surface-card:hover {
-  border-color: #d85d5d;
-}
-
-/* Custom dark scrollbar styling */
+/* Themed scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #000000;
+  background: var(--canvas);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #262626;
+  background: var(--line-strong);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #d85d5d;
+  background: var(--brand);
 }

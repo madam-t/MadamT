@@ -19,8 +19,7 @@ export interface PortfolioItem {
 export const PORTFOLIO_DATA: PortfolioItem[] = [
   {
     id: "medic-rush-2026",
-    title:
-      "Data Collection & Automation Lead — Round Table Hochland 154 (Medic Rush 2026)",
+    title: "Data Collection & Automation Lead",
     client: "Round Table Hochland 154",
     category: "Automation & Ops",
     summary:
@@ -45,7 +44,7 @@ export const PORTFOLIO_DATA: PortfolioItem[] = [
   },
   {
     id: "allan-gray-orbis",
-    title: "Cross-Border Program Delivery — Allan Gray Orbis Foundation",
+    title: "Cross-Border Program Delivery",
     client: "Allan Gray Orbis Foundation",
     category: "Project Management",
     summary:
@@ -67,7 +66,7 @@ export const PORTFOLIO_DATA: PortfolioItem[] = [
   },
   {
     id: "vumba-career-guidance",
-    title: "Logistics & Event Operations — Vumba Career Guidance Day",
+    title: "Logistics & Event Operations",
     client: "Vumba Career Guidance Day",
     category: "Project Management",
     summary:
