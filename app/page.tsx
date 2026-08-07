@@ -71,13 +71,10 @@ export default function Home() {
   // on every render of this page.
   const closeCaseStudy = useCallback(() => setSelectedCaseStudy(null), []);
 
-  // FIXME(broken-link): this schedule ID is a truncated UUID and the URL
-  // currently resolves to a Google "not found" page. Replace it with the full
-  // link from Google Calendar > Appointment schedules > Share ("Book now"),
-  // which looks like .../schedules/AcZssZ<~60 more chars>. This single
-  // constant feeds both the booking section CTA and the diagnostic CTA.
+  // Google Calendar appointment schedule ("Consultation with Madam T").
+  // Feeds both the booking section CTA and the diagnostic result CTA.
   const calendarBookingUrl =
-    "https://calendar.google.com/calendar/u/0/appointments/schedules/c1507727-b673-455b";
+    "https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0X1Vr35p4DG5PCJ4tHB0-j_BGPzvVaoOzLSSumSqGRCe9w5tCrNirqT7jBbZh7C-7n48NknxOl";
 
   return (
     <div className="min-h-screen bg-canvas text-ink flex flex-col justify-between selection:bg-brand selection:text-on-brand font-sans">
