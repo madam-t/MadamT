@@ -97,7 +97,7 @@ export default function Home() {
             <div className="w-9 h-9 shrink-0 rounded-lg bg-brand flex items-center justify-center font-bold text-canvas text-xl shadow-lg shadow-brand/20">
               M
             </div>
-            <span className="font-extrabold tracking-wider text-sm sm:text-base md:text-lg uppercase truncate">
+            <span className="font-extrabold tracking-wider text-sm sm:text-base md:text-lg uppercase truncate min-w-0">
               MADAM <span className="text-brand-ink">HOLDINGS</span>
             </span>
           </motion.div>
@@ -276,7 +276,7 @@ export default function Home() {
                 key={item.id}
                 whileHover={{ y: -6 }}
                 transition={{ duration: 0.2 }}
-                className="p-5 sm:p-6 md:p-8 rounded-2xl bg-surface border border-line hover:border-brand transition-all flex flex-col justify-between group shadow-lg"
+                className="min-w-0 p-5 sm:p-6 md:p-8 rounded-2xl bg-surface border border-line hover:border-brand transition-all flex flex-col justify-between group shadow-lg"
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
@@ -301,9 +301,18 @@ export default function Home() {
                     <div className="text-[10px] font-mono text-brand-ink uppercase font-bold">
                       Key Metric Highlight
                     </div>
-                    <div className="text-xs font-semibold text-ink-muted flex items-center gap-1.5">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-ink shrink-0" />
-                      <span className="truncate">{item.metrics[0]}</span>
+                    {/*
+                      This row used `truncate`, which sets white-space: nowrap.
+                      A flex item defaults to min-width:auto, so the span could
+                      not shrink below the full metric string and dragged the
+                      whole card past the viewport — 612px against a 360px
+                      phone for the longest one. line-clamp-2 lets the text
+                      wrap (no nowrap, so no minimum), shows far more of the
+                      metric than an ellipsis did, and still caps the height.
+                    */}
+                    <div className="text-xs font-semibold text-ink-muted flex items-start gap-1.5 min-w-0">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-ink shrink-0 mt-0.5" />
+                      <span className="line-clamp-2 min-w-0">{item.metrics[0]}</span>
                     </div>
                   </div>
 

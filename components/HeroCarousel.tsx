@@ -234,7 +234,7 @@ export default function HeroCarousel() {
           <div className="w-2.5 h-2.5 shrink-0 rounded-full bg-brand animate-pulse" />
           <span className="font-mono text-[10px] sm:text-xs text-ink-muted font-semibold tracking-wider flex items-center gap-1.5 min-w-0">
             <Sparkles className="w-3.5 h-3.5 shrink-0 text-brand-ink" />
-            <span className="truncate">
+            <span className="truncate min-w-0">
               MADAM T IN ACTION
               <span className="hidden md:inline">
                 {" // REAL-WORLD FIELD SNAPSHOTS"}

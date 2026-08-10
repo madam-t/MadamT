@@ -360,7 +360,7 @@ export default function SynergyDiagnostic({
           <div className="hidden sm:block w-3 h-3 rounded-full bg-success opacity-80" />
           <span className="sm:ml-2 font-mono text-[10px] sm:text-xs text-ink-subtle font-semibold tracking-wider flex items-center gap-1.5 min-w-0">
             <Terminal className="w-3.5 h-3.5 shrink-0 text-brand-ink" />
-            <span className="truncate">
+            <span className="truncate min-w-0">
               MADAM_T // <span className="hidden md:inline">SYNERGY_</span>
               DIAGNOSTIC
               <span className="hidden md:inline">_v1.0.4</span>
@@ -665,10 +665,10 @@ export default function SynergyDiagnostic({
                           (item, idx) => (
                             <div
                               key={idx}
-                              className="flex items-center gap-2 text-xs text-ink-muted bg-surface-deep px-3 py-2 rounded border border-line"
+                              className="flex items-center gap-2 text-xs text-ink-muted bg-surface-deep px-3 py-2 rounded border border-line min-w-0"
                             >
                               <CheckCircle2 className="w-3.5 h-3.5 text-brand-ink shrink-0" />
-                              <span className="truncate">{item}</span>
+                              <span className="truncate min-w-0">{item}</span>
                             </div>
                           )
                         )}

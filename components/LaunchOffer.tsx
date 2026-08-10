@@ -110,9 +110,9 @@ export default function LaunchOffer({ calendarUrl }: LaunchOfferProps) {
           {/* Search-result mock. Fixed light colours on purpose — it stands in
               for a search engine's UI, not the site's own chrome. */}
           <div className="rounded-2xl bg-white border border-line p-3 sm:p-4 md:p-5 space-y-3 shadow-xl">
-            <div className="flex items-center gap-2.5 rounded-full bg-zinc-100 px-4 py-2.5">
+            <div className="flex items-center gap-2.5 rounded-full bg-zinc-100 px-4 py-2.5 min-w-0">
               <Search className="w-4 h-4 text-zinc-500 shrink-0" />
-              <span className="text-sm text-zinc-700 truncate">
+              <span className="text-sm text-zinc-700 truncate min-w-0">
                 plumbers near me
               </span>
             </div>
