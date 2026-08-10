@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
+
+/** GA4 measurement ID for the madamholdings.com web stream. */
+const GA_MEASUREMENT_ID = "G-8QSLDPVR70";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -47,11 +51,14 @@ export const metadata: Metadata = {
 };
 
 /*
- * Runs before first paint so a stored "light" preference never flashes the
- * dark palette first. The server renders class="dark" (the brand default), and
- * this only strips it when the visitor has explicitly chosen light.
+ * Runs before first paint so a stored "dark" preference never flashes the
+ * light palette first. The server renders without the class (light is the
+ * default), and this only adds it when the visitor has explicitly chosen dark.
+ *
+ * Must stay in step with getServerSnapshot in components/ThemeToggle.tsx,
+ * which reports the same default during hydration.
  */
-const themeBootstrap = `(function(){try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t="dark"}var r=document.documentElement;r.classList.toggle("dark",t==="dark");r.style.colorScheme=t}catch(e){}})();`;
+const themeBootstrap = `(function(){try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t="light"}var r=document.documentElement;r.classList.toggle("dark",t==="dark");r.style.colorScheme=t}catch(e){}})();`;
 
 export default function RootLayout({
   children,
@@ -61,7 +68,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} dark scroll-smooth`}
+      className={`${inter.variable} scroll-smooth`}
       suppressHydrationWarning
     >
       <head>
@@ -70,6 +77,7 @@ export default function RootLayout({
       <body className="bg-canvas text-ink font-sans antialiased selection:bg-brand selection:text-on-brand min-h-screen flex flex-col">
         {children}
       </body>
+      <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
     </html>
   );
 }

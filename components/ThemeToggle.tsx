@@ -24,8 +24,9 @@ const subscribe = (onStoreChange: () => void) => {
 const getSnapshot = (): Theme =>
   document.documentElement.classList.contains("dark") ? "dark" : "light";
 
-// Matches the class the server renders, so hydration lines up.
-const getServerSnapshot = (): Theme => "dark";
+// Matches the class the server renders, so hydration lines up. Must stay in
+// step with the themeBootstrap default in app/layout.tsx.
+const getServerSnapshot = (): Theme => "light";
 
 export default function ThemeToggle({ className = "" }: { className?: string }) {
   const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);

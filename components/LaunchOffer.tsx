@@ -69,7 +69,7 @@ export default function LaunchOffer({ calendarUrl }: LaunchOfferProps) {
   const t = msLeftValue === null ? null : splitDuration(msLeftValue);
 
   return (
-    <div className="relative rounded-3xl border border-brand/40 bg-gradient-to-br from-surface-2 via-surface to-surface-deep p-7 md:p-12 overflow-hidden shadow-2xl">
+    <div className="relative rounded-3xl border border-brand/40 bg-gradient-to-br from-surface-2 via-surface to-surface-deep p-5 sm:p-7 md:p-12 overflow-hidden shadow-2xl">
       {/* Ambient brand glow */}
       <div className="absolute -top-24 -right-16 w-[380px] h-[380px] bg-brand/10 rounded-full blur-[120px] pointer-events-none" />
 
@@ -109,7 +109,7 @@ export default function LaunchOffer({ calendarUrl }: LaunchOfferProps) {
         <div className="grid lg:grid-cols-2 gap-8 items-start">
           {/* Search-result mock. Fixed light colours on purpose — it stands in
               for a search engine's UI, not the site's own chrome. */}
-          <div className="rounded-2xl bg-white border border-line p-4 md:p-5 space-y-3 shadow-xl">
+          <div className="rounded-2xl bg-white border border-line p-3 sm:p-4 md:p-5 space-y-3 shadow-xl">
             <div className="flex items-center gap-2.5 rounded-full bg-zinc-100 px-4 py-2.5">
               <Search className="w-4 h-4 text-zinc-500 shrink-0" />
               <span className="text-sm text-zinc-700 truncate">
@@ -154,11 +154,11 @@ export default function LaunchOffer({ calendarUrl }: LaunchOfferProps) {
               ))}
             </div>
 
-            <div className="rounded-2xl border border-brand/40 bg-surface-deep p-5 md:p-6 space-y-4">
+            <div className="rounded-2xl border border-brand/40 bg-surface-deep p-4 sm:p-5 md:p-6 space-y-4">
               <div className="flex flex-wrap items-end justify-between gap-4">
                 <div>
                   <div className="flex items-baseline gap-2 flex-wrap">
-                    <span className="text-4xl md:text-5xl font-extrabold text-brand-ink tracking-tight">
+                    <span className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-brand-ink tracking-tight">
                       {LAUNCH_OFFER.priceLocal}
                     </span>
                     <span className="text-lg md:text-xl font-bold text-ink-subtle">

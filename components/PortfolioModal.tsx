@@ -82,7 +82,7 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
             className="relative w-full max-w-3xl max-h-[90vh] flex flex-col rounded-2xl bg-surface-deep border border-line shadow-2xl overflow-hidden text-ink z-10"
           >
             {/* Top Header Bar */}
-            <div className="shrink-0 bg-surface px-6 py-4 border-b border-line flex items-center justify-between gap-4">
+            <div className="shrink-0 bg-surface px-4 sm:px-6 py-4 border-b border-line flex items-center justify-between gap-3">
               <div className="flex items-center gap-3 min-w-0">
                 <span className="w-2.5 h-2.5 rounded-full bg-brand shrink-0" />
                 <span className="font-mono text-xs text-brand-ink font-bold uppercase tracking-wider truncate">
@@ -102,7 +102,7 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
             </div>
 
             {/* Modal Content Body */}
-            <div className="p-6 md:p-8 space-y-6 overflow-y-auto">
+            <div className="p-4 sm:p-6 md:p-8 space-y-6 overflow-y-auto">
               {/* Title & Client Badge */}
               <div className="space-y-3">
                 <div className="flex flex-wrap items-center gap-2">
@@ -125,7 +125,7 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
 
               {/* Problem & Solution Detailed Breakdown */}
               <div className="grid md:grid-cols-2 gap-4">
-                <div className="p-5 rounded-xl bg-surface border border-line space-y-2">
+                <div className="p-4 sm:p-5 rounded-xl bg-surface border border-line space-y-2">
                   <div className="font-mono text-xs text-brand-ink font-bold uppercase tracking-wider">
                     The Operational Problem
                   </div>
@@ -134,7 +134,7 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
                   </p>
                 </div>
 
-                <div className="p-5 rounded-xl bg-surface border border-line space-y-2">
+                <div className="p-4 sm:p-5 rounded-xl bg-surface border border-line space-y-2">
                   <div className="font-mono text-xs text-success font-bold uppercase tracking-wider">
                     The Implemented Solution
                   </div>
@@ -145,7 +145,7 @@ export default function PortfolioModal({ item, onClose }: PortfolioModalProps) {
               </div>
 
               {/* Metrics Achieved */}
-              <div className="space-y-3 p-5 rounded-xl bg-surface border border-line">
+              <div className="space-y-3 p-4 sm:p-5 rounded-xl bg-surface border border-line">
                 <div className="font-mono text-xs text-ink-subtle font-bold uppercase tracking-wider flex items-center gap-2">
                   <ShieldCheck className="w-4 h-4 text-brand-ink" />
                   Key Verified Metrics &amp; Proof Points

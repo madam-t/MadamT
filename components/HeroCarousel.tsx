@@ -224,20 +224,30 @@ export default function HeroCarousel() {
       aria-label="Madam T in action"
     >
       {/* Top Banner Control Bar */}
-      <div className="bg-surface px-5 py-3 border-b border-line flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <div className="w-2.5 h-2.5 rounded-full bg-brand animate-pulse" />
-          <span className="font-mono text-xs text-ink-muted font-semibold tracking-wider flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-brand-ink" />
-            MADAM T IN ACTION // REAL-WORLD FIELD SNAPSHOTS
+      <div className="bg-surface px-3 sm:px-5 py-3 border-b border-line flex items-center justify-between gap-3">
+        {/*
+          min-w-0 + truncate so this label can never widen the bar: the full
+          string measures ~507px against ~272px of usable width at 360px.
+          Phones get the short form; the suffix returns from md up.
+        */}
+        <div className="flex items-center gap-2.5 min-w-0">
+          <div className="w-2.5 h-2.5 shrink-0 rounded-full bg-brand animate-pulse" />
+          <span className="font-mono text-[10px] sm:text-xs text-ink-muted font-semibold tracking-wider flex items-center gap-1.5 min-w-0">
+            <Sparkles className="w-3.5 h-3.5 shrink-0 text-brand-ink" />
+            <span className="truncate">
+              MADAM T IN ACTION
+              <span className="hidden md:inline">
+                {" // REAL-WORLD FIELD SNAPSHOTS"}
+              </span>
+            </span>
           </span>
         </div>
 
-        <div className="flex items-center gap-4 text-xs font-mono text-ink-subtle">
+        <div className="flex items-center gap-3 sm:gap-4 text-[10px] sm:text-xs font-mono text-ink-subtle shrink-0">
           <button
             type="button"
             onClick={() => setIsPaused(!isPaused)}
-            className="flex items-center gap-1.5 hover:text-brand-ink transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 py-1 px-1 -mx-1 hover:text-brand-ink transition-colors cursor-pointer"
             title={isPaused ? "Resume slideshow" : "Pause slideshow"}
             aria-label={isPaused ? "Resume slideshow" : "Pause slideshow"}
           >
@@ -260,7 +270,7 @@ export default function HeroCarousel() {
       </div>
 
       {/* Main Carousel Card Body */}
-      <div className="relative min-h-[380px] md:min-h-[420px] p-6 md:p-10 flex flex-col justify-between overflow-hidden">
+      <div className="relative min-h-[380px] md:min-h-[420px] p-4 sm:p-6 md:p-10 flex flex-col justify-between overflow-hidden">
         {/*
           The animated slide backdrop sits at z-0, not -z-10: a negative
           z-index paints it underneath the card's own bg-surface-deep, which
@@ -309,7 +319,7 @@ export default function HeroCarousel() {
             <div>
               {currentSlide.visualType === "ocr" && (
                 <div className="p-4 rounded-xl bg-surface/80 border border-line max-w-md font-mono text-xs text-ink-muted space-y-2">
-                  <div className="flex items-center justify-between text-[11px] text-brand-ink border-b border-line pb-1.5 font-bold">
+                  <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-[10px] sm:text-[11px] text-brand-ink border-b border-line pb-1.5 font-bold">
                     <span>[LIVE OCR DATA STREAM]</span>
                     <span>STATUS: 750+ RECORDS DIGITIZED</span>
                   </div>
@@ -323,7 +333,7 @@ export default function HeroCarousel() {
 
               {currentSlide.visualType === "design" && (
                 <div className="p-4 rounded-xl bg-surface/80 border border-line max-w-md font-mono text-xs space-y-2">
-                  <div className="flex items-center justify-between text-[11px] text-brand-ink border-b border-line pb-1.5 font-bold">
+                  <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-[10px] sm:text-[11px] text-brand-ink border-b border-line pb-1.5 font-bold">
                     <span>[DESIGN THINKING MATRIX]</span>
                     <span>UCT MARKETING HONOURS</span>
                   </div>
@@ -337,7 +347,7 @@ export default function HeroCarousel() {
 
               {currentSlide.visualType === "logistics" && (
                 <div className="p-4 rounded-xl bg-surface/80 border border-line max-w-md font-mono text-xs space-y-2">
-                  <div className="flex items-center justify-between text-[11px] text-brand-ink border-b border-line pb-1.5 font-bold">
+                  <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-[10px] sm:text-[11px] text-brand-ink border-b border-line pb-1.5 font-bold">
                     <span>[CROSS-BORDER CORRIDOR]</span>
                     <span>3 NATIONS • ZERO DELAYS</span>
                   </div>
@@ -361,18 +371,27 @@ export default function HeroCarousel() {
         <div className="pt-4 mt-6 border-t border-line flex items-center justify-between z-10">
           {/* Accent Indicator Dots */}
           <div className="flex items-center gap-2">
+            {/*
+              The visible dot stays 8px, but the button wrapping it is 44px
+              tall so it clears the minimum touch target on a phone.
+            */}
             {CAROUSEL_SLIDES.map((slide, idx) => (
               <button
                 key={slide.id}
                 type="button"
                 onClick={() => setCurrentIndex(idx)}
-                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                  idx === currentIndex
-                    ? "w-8 bg-brand"
-                    : "w-2 bg-line-strong hover:bg-ink-faint"
-                }`}
+                className="h-11 flex items-center px-1 -mx-1 cursor-pointer group/dot"
                 aria-label={`Go to slide ${idx + 1}`}
-              />
+                aria-current={idx === currentIndex ? "true" : undefined}
+              >
+                <span
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    idx === currentIndex
+                      ? "w-8 bg-brand"
+                      : "w-2 bg-line-strong group-hover/dot:bg-ink-faint"
+                  }`}
+                />
+              </button>
             ))}
           </div>
 

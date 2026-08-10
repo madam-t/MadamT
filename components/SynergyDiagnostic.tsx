@@ -348,22 +348,31 @@ export default function SynergyDiagnostic({
       className={`w-full max-w-4xl mx-auto rounded-2xl bg-surface-deep border border-line shadow-2xl overflow-hidden font-sans text-ink selection:bg-brand selection:text-on-brand ${className}`}
     >
       {/* Dark Terminal Top Bar */}
-      <div className="bg-surface px-4 py-3 border-b border-line flex items-center justify-between select-none">
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-brand opacity-90 shadow-sm shadow-brand/50" />
-          <div className="w-3 h-3 rounded-full bg-warn opacity-80" />
-          <div className="w-3 h-3 rounded-full bg-success opacity-80" />
-          <span className="ml-2 font-mono text-xs text-ink-subtle font-semibold tracking-wider flex items-center gap-1.5">
-            <Terminal className="w-3.5 h-3.5 text-brand-ink" />
-            MADAM_T // SYNERGY_DIAGNOSTIC_v1.0.4
+      {/*
+          The decorative traffic lights and the version suffix are dropped on
+          phones: with both, this row measures ~430px against ~280px of usable
+          width at 360px. min-w-0 + truncate guarantee it can never push wide.
+      */}
+      <div className="bg-surface px-3 sm:px-4 py-3 border-b border-line flex items-center justify-between gap-3 select-none">
+        <div className="flex items-center gap-2 min-w-0">
+          <div className="hidden sm:block w-3 h-3 rounded-full bg-brand opacity-90 shadow-sm shadow-brand/50" />
+          <div className="hidden sm:block w-3 h-3 rounded-full bg-warn opacity-80" />
+          <div className="hidden sm:block w-3 h-3 rounded-full bg-success opacity-80" />
+          <span className="sm:ml-2 font-mono text-[10px] sm:text-xs text-ink-subtle font-semibold tracking-wider flex items-center gap-1.5 min-w-0">
+            <Terminal className="w-3.5 h-3.5 shrink-0 text-brand-ink" />
+            <span className="truncate">
+              MADAM_T // <span className="hidden md:inline">SYNERGY_</span>
+              DIAGNOSTIC
+              <span className="hidden md:inline">_v1.0.4</span>
+            </span>
           </span>
         </div>
 
-        <div className="flex items-center gap-3">
-          <span className="hidden sm:inline-block font-mono text-[10px] uppercase tracking-widest text-brand-ink bg-brand/10 px-2 py-0.5 rounded border border-brand/20">
+        <div className="flex items-center gap-3 shrink-0">
+          <span className="hidden lg:inline-block font-mono text-[10px] uppercase tracking-widest text-brand-ink bg-brand/10 px-2 py-0.5 rounded border border-brand/20">
             Active Diagnostic Terminal
           </span>
-          <div className="text-xs font-mono text-ink-faint">
+          <div className="text-[10px] sm:text-xs font-mono text-ink-faint">
             STEP {step}/3
           </div>
         </div>
@@ -382,7 +391,7 @@ export default function SynergyDiagnostic({
       </div>
 
       {/* Main Terminal Screen Content */}
-      <div className="p-6 md:p-10 relative bg-gradient-to-b from-surface-deep to-canvas">
+      <div className="p-4 sm:p-6 md:p-10 relative bg-gradient-to-b from-surface-deep to-canvas">
         {/* Ambient Subtle Glow */}
         <div className="absolute top-0 right-0 w-72 h-72 bg-brand/5 rounded-full blur-3xl pointer-events-none" />
 
@@ -422,7 +431,7 @@ export default function SynergyDiagnostic({
                       whileHover={{ scale: 1.015, y: -2 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => handleStageSelect(opt.id)}
-                      className={`text-left p-6 rounded-xl border transition-all duration-200 group flex flex-col justify-between cursor-pointer relative overflow-hidden ${
+                      className={`text-left p-4 sm:p-6 rounded-xl border transition-all duration-200 group flex flex-col justify-between cursor-pointer relative overflow-hidden ${
                         isSelected
                           ? "bg-surface-2 border-brand shadow-lg shadow-brand/10"
                           : "bg-surface border-line hover:border-brand/60 hover:bg-surface-hover"
@@ -509,7 +518,7 @@ export default function SynergyDiagnostic({
                       whileHover={{ scale: 1.015, y: -2 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => handleChallengeSelect(opt.id)}
-                      className={`text-left p-5 rounded-xl border transition-all duration-200 group flex flex-col justify-between cursor-pointer ${
+                      className={`text-left p-4 sm:p-5 rounded-xl border transition-all duration-200 group flex flex-col justify-between cursor-pointer ${
                         isSelected
                           ? "bg-surface-2 border-brand shadow-lg shadow-brand/10"
                           : "bg-surface border-line hover:border-brand/60 hover:bg-surface-hover"
@@ -571,7 +580,7 @@ export default function SynergyDiagnostic({
                 /* Output Diagnostic Recommendation */
                 <div className="space-y-6">
                   {/* Result Header Badge */}
-                  <div className="flex flex-wrap items-center justify-between gap-4 pb-2 border-b border-line">
+                  <div className="flex flex-wrap items-center justify-between gap-3 pb-2 border-b border-line">
                     <div className="flex items-center gap-2">
                       <div className="w-2.5 h-2.5 rounded-full bg-brand animate-ping" />
                       <span className="font-mono text-xs font-bold text-brand-ink uppercase tracking-widest">
@@ -589,7 +598,7 @@ export default function SynergyDiagnostic({
                   </div>
 
                   {/* Executive Summary Card */}
-                  <div className="p-6 rounded-xl bg-surface border border-line space-y-4 relative overflow-hidden">
+                  <div className="p-4 sm:p-6 rounded-xl bg-surface border border-line space-y-4 relative overflow-hidden">
                     <div className="absolute top-0 left-0 w-1 h-full bg-brand" />
 
                     <div className="flex items-start justify-between gap-4">
@@ -668,7 +677,7 @@ export default function SynergyDiagnostic({
                   </div>
 
                   {/* Prominent CTA Section */}
-                  <div className="p-6 rounded-xl bg-gradient-to-r from-surface-2 via-surface to-surface-2 border border-brand/40 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl shadow-brand/5">
+                  <div className="p-4 sm:p-6 rounded-xl bg-gradient-to-r from-surface-2 via-surface to-surface-2 border border-brand/40 flex flex-col sm:flex-row items-center justify-between gap-5 sm:gap-6 shadow-xl shadow-brand/5">
                     <div className="space-y-1 text-center sm:text-left">
                       <div className="flex items-center justify-center sm:justify-start gap-2 text-xs font-mono font-bold text-brand-ink uppercase tracking-wider">
                         <ShieldCheck className="w-4 h-4" /> Next Step &bull; Executive Strategy
@@ -701,7 +710,7 @@ export default function SynergyDiagnostic({
       </div>
 
       {/* Terminal Footer Info */}
-      <div className="px-6 py-3 bg-surface-deep border-t border-line flex items-center justify-between text-[11px] font-mono text-ink-faint">
+      <div className="px-4 sm:px-6 py-3 bg-surface-deep border-t border-line flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-[10px] sm:text-[11px] font-mono text-ink-faint">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-brand" />
           <span>STATUS: READY</span>
