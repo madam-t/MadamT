@@ -22,14 +22,12 @@ import ThemeToggle from "@/components/ThemeToggle";
 import LaunchOffer from "@/components/LaunchOffer";
 import LaunchOfferBar from "@/components/LaunchOfferBar";
 import PortfolioModal from "@/components/PortfolioModal";
-import SynergyDiagnostic from "@/components/SynergyDiagnostic";
 import { PORTFOLIO_DATA, PortfolioItem } from "@/data/portfolioData";
 
 const NAV_LINKS: { id: string; label: string }[] = [
   { id: "portfolio", label: "Portfolio" },
   { id: "offer", label: "Launch Offer" },
   { id: "about", label: "About Madam T" },
-  { id: "diagnostic", label: "Diagnostic" },
   { id: "booking", label: "Book a Call" },
 ];
 
@@ -456,19 +454,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 5. Interactive Section: The Synergy Diagnostic */}
-        <section id="diagnostic" className="scroll-mt-24 py-14 md:py-16 px-4 sm:px-6 max-w-7xl mx-auto space-y-8">
-          <div className="text-center space-y-3">
-            <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">
-              Operational Synergy Diagnostic
-            </h2>
-            <p className="text-ink-subtle max-w-2xl mx-auto text-sm md:text-base">
-              Curious if we’d make a great team? Run through this quick 3-step diagnostic widget to see how Madam T and our engineering unit can untangle your operations!
-            </p>
-          </div>
-
-          <SynergyDiagnostic calendarUrl={calendarBookingUrl} />
-        </section>
 
         {/* 6. Bookings & Contact Section */}
         <section id="booking" className="scroll-mt-24 py-14 md:py-16 px-4 sm:px-6 max-w-7xl mx-auto">
@@ -542,13 +527,6 @@ export default function Home() {
               className="hover:text-ink transition-colors cursor-pointer"
             >
               About
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollToSection("diagnostic")}
-              className="hover:text-ink transition-colors cursor-pointer"
-            >
-              Diagnostic
             </button>
             <button
               type="button"
