@@ -252,13 +252,10 @@ export default function Home() {
 
         {/* 3. Portfolio & Case Studies Section (Featured First) */}
         <section id="portfolio" className="scroll-mt-24 py-14 md:py-16 px-4 sm:px-6 max-w-7xl mx-auto space-y-6">
-          <div className="mb-10 text-center space-y-3">
+          <div className="mb-10 text-center">
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">
-              The Work &amp; The Proof
+              The Work and Proof
             </h2>
-            <p className="text-ink-subtle max-w-2xl mx-auto text-sm md:text-base">
-              No fluffy sales talk—here is real work delivered for real organizations. Click any case study to explore the problem, the tech built, and exact metrics achieved.
-            </p>
           </div>
 
           {/* Row 1: 2 Web Engineering Case Studies */}
