@@ -168,13 +168,6 @@ export default function Home() {
                 </span>
               </motion.h1>
 
-              <motion.p
-                variants={itemVariants}
-                className="text-lg md:text-xl text-neutral-300 max-w-3xl mx-auto leading-relaxed font-normal"
-              >
-                Hey there! I&apos;m Madam T. I solve messy operational bottlenecks, design digital systems, and build slick web platforms alongside my engineering team—all completely remote.
-              </motion.p>
-
               <motion.div
                 variants={itemVariants}
                 className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2"
