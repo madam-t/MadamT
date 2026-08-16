@@ -251,7 +251,7 @@ export default function Home() {
         </section>
 
         {/* 3. Portfolio & Case Studies Section (Featured First) */}
-        <section id="portfolio" className="scroll-mt-24 py-14 md:py-16 px-4 sm:px-6 max-w-7xl mx-auto">
+        <section id="portfolio" className="scroll-mt-24 py-14 md:py-16 px-4 sm:px-6 max-w-7xl mx-auto space-y-6">
           <div className="mb-10 text-center space-y-3">
             <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">
               The Work &amp; The Proof
@@ -261,8 +261,9 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {PORTFOLIO_DATA.map((item) => (
+          {/* Row 1: 2 Web Engineering Case Studies */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {PORTFOLIO_DATA.filter((item) => item.category === "Web Engineering").map((item) => (
               <motion.div
                 key={item.id}
                 whileHover={{ y: -6 }}
@@ -292,15 +293,76 @@ export default function Home() {
                     <div className="text-[10px] font-mono text-brand-ink uppercase font-bold">
                       Key Metric Highlight
                     </div>
-                    {/*
-                      This row used `truncate`, which sets white-space: nowrap.
-                      A flex item defaults to min-width:auto, so the span could
-                      not shrink below the full metric string and dragged the
-                      whole card past the viewport — 612px against a 360px
-                      phone for the longest one. line-clamp-2 lets the text
-                      wrap (no nowrap, so no minimum), shows far more of the
-                      metric than an ellipsis did, and still caps the height.
-                    */}
+                    <div className="text-xs font-semibold text-ink-muted flex items-start gap-1.5 min-w-0">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-brand-ink shrink-0 mt-0.5" />
+                      <span className="line-clamp-2 min-w-0">{item.metrics[0]}</span>
+                    </div>
+                  </div>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-1.5 pt-1">
+                    {item.tags.slice(0, 3).map((tag, idx) => (
+                      <span
+                        key={idx}
+                        className="px-2 py-0.5 rounded bg-surface-2 text-ink-subtle text-[11px] font-mono"
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                    {item.tags.length > 3 && (
+                      <span className="px-2 py-0.5 rounded bg-surface-2 text-ink-faint text-[11px] font-mono">
+                        +{item.tags.length - 3}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="pt-6 mt-6 border-t border-line">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedCaseStudy(item)}
+                    className="w-full py-3 rounded-xl bg-surface-2 hover:bg-brand text-ink hover:text-on-brand font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer border border-line hover:border-brand"
+                  >
+                    Read Case Study
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Row 2: 3 remaining Case Studies */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {PORTFOLIO_DATA.filter((item) => item.category !== "Web Engineering").map((item) => (
+              <motion.div
+                key={item.id}
+                whileHover={{ y: -6 }}
+                transition={{ duration: 0.2 }}
+                className="min-w-0 p-5 sm:p-6 md:p-8 rounded-2xl bg-surface border border-line hover:border-brand transition-all flex flex-col justify-between group shadow-lg"
+              >
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="px-3 py-1 rounded-full bg-surface-2 border border-line text-xs font-mono text-brand-ink font-semibold">
+                      {item.category}
+                    </span>
+                    <span className="text-[11px] font-mono text-ink-faint truncate max-w-[150px]">
+                      {item.client}
+                    </span>
+                  </div>
+
+                  <h3 className="text-xl font-bold text-ink group-hover:text-brand-ink transition-colors leading-snug">
+                    {item.title}
+                  </h3>
+
+                  <p className="text-ink-muted text-xs md:text-sm leading-relaxed line-clamp-3">
+                    {item.summary}
+                  </p>
+
+                  {/* Highlights Pill */}
+                  <div className="p-3 rounded-xl bg-surface-deep border border-line space-y-1">
+                    <div className="text-[10px] font-mono text-brand-ink uppercase font-bold">
+                      Key Metric Highlight
+                    </div>
                     <div className="text-xs font-semibold text-ink-muted flex items-start gap-1.5 min-w-0">
                       <CheckCircle2 className="w-3.5 h-3.5 text-brand-ink shrink-0 mt-0.5" />
                       <span className="line-clamp-2 min-w-0">{item.metrics[0]}</span>

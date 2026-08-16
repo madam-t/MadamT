@@ -18,6 +18,51 @@ export interface PortfolioItem {
 
 export const PORTFOLIO_DATA: PortfolioItem[] = [
   {
+    id: "ivoire-africa",
+    title: "Ivoire Africa Corporate Platform (ivoireafrica.com)",
+    client: "Ivoire Africa",
+    category: "Web Engineering",
+    summary:
+      "Engineered a high-performance investment group platform designed for strategic investor positioning.",
+    problem:
+      "Established business consulting and cash loan firm needed modern web presence.",
+    solution:
+      "Full-stack responsive web development highlighting financial services and client trust.",
+    metrics: [
+      "Live web deployment at ivoireafrica.com",
+      "Improved credibility for corporate lending",
+    ],
+    tags: [
+      "Web Engineering",
+      "Investment Platform",
+      "Brand Positioning",
+      "Next.js",
+    ],
+    imagePlaceholder: "ivoire-africa-platform",
+  },
+  {
+    id: "eshham-investment-group",
+    title: "Eshham Investment Group (eshham.com)",
+    client: "Eshham Investment Group",
+    category: "Web Engineering",
+    summary:
+      "Developed a modern full-stack corporate web presence for established business consulting and cash loan operations.",
+    problem: "Startup investment group required dynamic launch platform.",
+    solution:
+      "High-performance custom web platform designed for investor positioning.",
+    metrics: [
+      "Successful public digital launch at eshham.com",
+      "Enhanced brand positioning",
+    ],
+    tags: [
+      "Full-Stack Web Development",
+      "Financial Services",
+      "Corporate Web Platform",
+      "Responsive Design",
+    ],
+    imagePlaceholder: "eshham-investment-group",
+  },
+  {
     id: "medic-rush-2026",
     title: "Data Collection & Automation Lead",
     client: "Round Table Hochland 154",
@@ -87,50 +132,5 @@ export const PORTFOLIO_DATA: PortfolioItem[] = [
       "Stakeholder Management",
     ],
     imagePlaceholder: "vumba-event-logistics",
-  },
-  {
-    id: "ivoire-africa",
-    title: "Ivoire Africa Corporate Platform (ivoireafrica.com)",
-    client: "Ivoire Africa",
-    category: "Web Engineering",
-    summary:
-      "Engineered a high-performance investment group platform designed for strategic investor positioning.",
-    problem:
-      "Established business consulting and cash loan firm needed modern web presence.",
-    solution:
-      "Full-stack responsive web development highlighting financial services and client trust.",
-    metrics: [
-      "Live web deployment at ivoireafrica.com",
-      "Improved credibility for corporate lending",
-    ],
-    tags: [
-      "Web Engineering",
-      "Investment Platform",
-      "Brand Positioning",
-      "Next.js",
-    ],
-    imagePlaceholder: "ivoire-africa-platform",
-  },
-  {
-    id: "eshham-investment-group",
-    title: "Eshham Investment Group (eshham.com)",
-    client: "Eshham Investment Group",
-    category: "Web Engineering",
-    summary:
-      "Developed a modern full-stack corporate web presence for established business consulting and cash loan operations.",
-    problem: "Startup investment group required dynamic launch platform.",
-    solution:
-      "High-performance custom web platform designed for investor positioning.",
-    metrics: [
-      "Successful public digital launch at eshham.com",
-      "Enhanced brand positioning",
-    ],
-    tags: [
-      "Full-Stack Web Development",
-      "Financial Services",
-      "Corporate Web Platform",
-      "Responsive Design",
-    ],
-    imagePlaceholder: "eshham-investment-group",
   },
 ];
