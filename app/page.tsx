@@ -424,30 +424,28 @@ export default function Home() {
               <div className="lg:col-span-5 flex flex-col gap-4">
                 {/*
                   `flex-1 min-h-0` + a fill image lets the frame absorb whatever
-                  height the prose column sets, instead of the portrait's own
-                  intrinsic height driving the row. That keeps the CTA below
-                  aligned with the bottom of the text beside it.
+                  height the prose column sets.
                 */}
-                <div className="relative flex-1 min-h-[380px] sm:min-h-[440px] lg:min-h-0 rounded-2xl bg-surface-deep border border-line overflow-hidden">
+                <div className="relative flex-1 min-h-[300px] sm:min-h-[360px] lg:min-h-0 rounded-2xl bg-surface-deep border border-line overflow-hidden">
                   {/* Ambient brand glow behind the cut-out portrait */}
                   <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[120%] h-2/3 bg-brand/10 blur-[90px] rounded-full pointer-events-none" />
 
                   <Image
-                    src="/Madam-T-2.png"
+                    src="/Madam-T-phone.png"
                     alt="Portrait of Madam T"
                     fill
                     sizes="(min-width: 1024px) 40vw, (min-width: 640px) 60vw, 90vw"
-                    className="object-contain object-bottom p-4"
+                    className="object-contain object-center p-3"
                   />
                 </div>
 
                 <button
                   type="button"
                   onClick={() => scrollToSection("booking")}
-                  className="shrink-0 w-full py-3.5 rounded-xl bg-brand hover:bg-brand-hover text-on-brand font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-brand/20 flex items-center justify-center gap-2 cursor-pointer"
+                  className="shrink-0 w-full py-5 sm:py-6 rounded-2xl bg-brand hover:bg-brand-hover text-on-brand font-bold text-xs sm:text-sm uppercase tracking-wider transition-all shadow-xl shadow-brand/25 flex items-center justify-center gap-2.5 cursor-pointer group"
                 >
-                  Book Free Consultation
-                  <ArrowRight className="w-4 h-4" />
+                  <span>Book Free Consultation</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
             </div>
