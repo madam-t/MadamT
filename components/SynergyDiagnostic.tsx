@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Terminal,
@@ -291,6 +291,15 @@ export default function SynergyDiagnostic({
   const [selectedChallenge, setSelectedChallenge] =
     useState<OperationalChallenge | null>(null);
   const [isCalculating, setIsCalculating] = useState(false);
+  // An event handler's return value is discarded by React, so the previous
+  // `return () => clearTimeout(timer)` never ran. Track it on a ref instead.
+  const calcTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (calcTimerRef.current) clearTimeout(calcTimerRef.current);
+    };
+  }, []);
 
   const handleStageSelect = (stage: OrganizationStage) => {
     setSelectedStage(stage);
@@ -303,13 +312,18 @@ export default function SynergyDiagnostic({
     setStep(3);
 
     // Simulate calculation animation effect
-    const timer = setTimeout(() => {
+    if (calcTimerRef.current) clearTimeout(calcTimerRef.current);
+    calcTimerRef.current = setTimeout(() => {
       setIsCalculating(false);
+      calcTimerRef.current = null;
     }, 900);
-    return () => clearTimeout(timer);
   };
 
   const handleReset = () => {
+    if (calcTimerRef.current) {
+      clearTimeout(calcTimerRef.current);
+      calcTimerRef.current = null;
+    }
     setStep(1);
     setSelectedStage(null);
     setSelectedChallenge(null);
@@ -331,34 +345,43 @@ export default function SynergyDiagnostic({
 
   return (
     <div
-      className={`w-full max-w-4xl mx-auto rounded-2xl bg-[#0a0a0a] border border-[#262626] shadow-2xl overflow-hidden font-sans text-neutral-100 selection:bg-[#d85d5d] selection:text-white ${className}`}
+      className={`w-full max-w-4xl mx-auto rounded-2xl bg-surface-deep border border-line shadow-2xl overflow-hidden font-sans text-ink selection:bg-brand selection:text-on-brand ${className}`}
     >
       {/* Dark Terminal Top Bar */}
-      <div className="bg-[#111111] px-4 py-3 border-b border-[#262626] flex items-center justify-between select-none">
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full bg-[#d85d5d] opacity-90 shadow-sm shadow-[#d85d5d]/50" />
-          <div className="w-3 h-3 rounded-full bg-[#eab308] opacity-80" />
-          <div className="w-3 h-3 rounded-full bg-[#22c55e] opacity-80" />
-          <span className="ml-2 font-mono text-xs text-neutral-400 font-semibold tracking-wider flex items-center gap-1.5">
-            <Terminal className="w-3.5 h-3.5 text-[#d85d5d]" />
-            MADAM_T // SYNERGY_DIAGNOSTIC_v1.0.4
+      {/*
+          The decorative traffic lights and the version suffix are dropped on
+          phones: with both, this row measures ~430px against ~280px of usable
+          width at 360px. min-w-0 + truncate guarantee it can never push wide.
+      */}
+      <div className="bg-surface px-3 sm:px-4 py-3 border-b border-line flex items-center justify-between gap-3 select-none">
+        <div className="flex items-center gap-2 min-w-0">
+          <div className="hidden sm:block w-3 h-3 rounded-full bg-brand opacity-90 shadow-sm shadow-brand/50" />
+          <div className="hidden sm:block w-3 h-3 rounded-full bg-warn opacity-80" />
+          <div className="hidden sm:block w-3 h-3 rounded-full bg-success opacity-80" />
+          <span className="sm:ml-2 font-mono text-[10px] sm:text-xs text-ink-subtle font-semibold tracking-wider flex items-center gap-1.5 min-w-0">
+            <Terminal className="w-3.5 h-3.5 shrink-0 text-brand-ink" />
+            <span className="truncate min-w-0">
+              MADAM_T // <span className="hidden md:inline">SYNERGY_</span>
+              DIAGNOSTIC
+              <span className="hidden md:inline">_v1.0.4</span>
+            </span>
           </span>
         </div>
 
-        <div className="flex items-center gap-3">
-          <span className="hidden sm:inline-block font-mono text-[10px] uppercase tracking-widest text-[#d85d5d] bg-[#d85d5d]/10 px-2 py-0.5 rounded border border-[#d85d5d]/20">
+        <div className="flex items-center gap-3 shrink-0">
+          <span className="hidden lg:inline-block font-mono text-[10px] uppercase tracking-widest text-brand-ink bg-brand/10 px-2 py-0.5 rounded border border-brand/20">
             Active Diagnostic Terminal
           </span>
-          <div className="text-xs font-mono text-neutral-500">
+          <div className="text-[10px] sm:text-xs font-mono text-ink-faint">
             STEP {step}/3
           </div>
         </div>
       </div>
 
       {/* Progress Indicator Bar */}
-      <div className="w-full bg-[#18181b] h-1 relative overflow-hidden">
+      <div className="w-full bg-surface-2 h-1 relative overflow-hidden">
         <motion.div
-          className="h-full bg-[#d85d5d]"
+          className="h-full bg-brand"
           initial={{ width: "33%" }}
           animate={{
             width: step === 1 ? "33%" : step === 2 ? "66%" : "100%",
@@ -368,9 +391,9 @@ export default function SynergyDiagnostic({
       </div>
 
       {/* Main Terminal Screen Content */}
-      <div className="p-6 md:p-10 relative bg-gradient-to-b from-[#0d0d0d] to-[#050505]">
+      <div className="p-4 sm:p-6 md:p-10 relative bg-gradient-to-b from-surface-deep to-canvas">
         {/* Ambient Subtle Glow */}
-        <div className="absolute top-0 right-0 w-72 h-72 bg-[#d85d5d]/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-0 w-72 h-72 bg-brand/5 rounded-full blur-3xl pointer-events-none" />
 
         <AnimatePresence mode="wait">
           {/* STEP 1: Select Organization Stage */}
@@ -384,14 +407,14 @@ export default function SynergyDiagnostic({
               className="space-y-6"
             >
               <div className="space-y-2">
-                <div className="font-mono text-xs text-[#d85d5d] uppercase tracking-widest flex items-center gap-2">
+                <div className="font-mono text-xs text-brand-ink uppercase tracking-widest flex items-center gap-2">
                   <span>&gt; INITIATING_DIAGNOSTIC</span>
-                  <span className="w-1.5 h-3 bg-[#d85d5d] animate-pulse inline-block" />
+                  <span className="w-1.5 h-3 bg-brand animate-pulse inline-block" />
                 </div>
-                <h2 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+                <h2 className="text-2xl md:text-3xl font-extrabold text-ink tracking-tight">
                   Step 1: Select Organization Stage
                 </h2>
-                <p className="text-sm text-neutral-400 max-w-xl">
+                <p className="text-sm text-ink-subtle max-w-xl">
                   Choose the structural operating stage of your enterprise to
                   calibrate our diagnostic matrix.
                 </p>
@@ -408,32 +431,32 @@ export default function SynergyDiagnostic({
                       whileHover={{ scale: 1.015, y: -2 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => handleStageSelect(opt.id)}
-                      className={`text-left p-6 rounded-xl border transition-all duration-200 group flex flex-col justify-between cursor-pointer relative overflow-hidden ${
+                      className={`text-left p-4 sm:p-6 rounded-xl border transition-all duration-200 group flex flex-col justify-between cursor-pointer relative overflow-hidden ${
                         isSelected
-                          ? "bg-[#18181b] border-[#d85d5d] shadow-lg shadow-[#d85d5d]/10"
-                          : "bg-[#111111] border-[#262626] hover:border-[#d85d5d]/60 hover:bg-[#141414]"
+                          ? "bg-surface-2 border-brand shadow-lg shadow-brand/10"
+                          : "bg-surface border-line hover:border-brand/60 hover:bg-surface-hover"
                       }`}
                     >
                       <div className="space-y-4">
                         <div className="flex items-center justify-between">
-                          <div className="w-10 h-10 rounded-lg bg-[#18181b] border border-[#262626] flex items-center justify-center text-[#d85d5d] group-hover:border-[#d85d5d]/50 transition-colors">
+                          <div className="w-10 h-10 rounded-lg bg-surface-2 border border-line flex items-center justify-center text-brand-ink group-hover:border-brand/50 transition-colors">
                             <Icon className="w-5 h-5" />
                           </div>
-                          <ChevronLeft className="w-5 h-5 text-neutral-600 rotate-180 group-hover:text-[#d85d5d] group-hover:translate-x-1 transition-all" />
+                          <ChevronLeft className="w-5 h-5 text-ink-faint rotate-180 group-hover:text-brand-ink group-hover:translate-x-1 transition-all" />
                         </div>
                         <div>
-                          <h3 className="text-lg font-bold text-white group-hover:text-[#d85d5d] transition-colors mb-2">
+                          <h3 className="text-lg font-bold text-ink group-hover:text-brand-ink transition-colors mb-2">
                             {opt.title}
                           </h3>
-                          <p className="text-xs text-neutral-400 leading-relaxed">
+                          <p className="text-xs text-ink-subtle leading-relaxed">
                             {opt.description}
                           </p>
                         </div>
                       </div>
 
-                      <div className="mt-6 pt-4 border-t border-[#262626]/80 flex items-center justify-between text-xs font-mono text-neutral-500">
+                      <div className="mt-6 pt-4 border-t border-line/80 flex items-center justify-between text-xs font-mono text-ink-faint">
                         <span>OPTION_0{STAGE_OPTIONS.indexOf(opt) + 1}</span>
-                        <span className="text-[#d85d5d] font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span className="text-brand-ink font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
                           SELECT &rarr;
                         </span>
                       </div>
@@ -458,27 +481,27 @@ export default function SynergyDiagnostic({
                 <button
                   type="button"
                   onClick={() => setStep(1)}
-                  className="inline-flex items-center gap-1.5 text-xs font-mono text-neutral-400 hover:text-[#d85d5d] transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 text-xs font-mono text-ink-subtle hover:text-brand-ink transition-colors cursor-pointer"
                 >
                   <ChevronLeft className="w-4 h-4" /> &lt; BACK TO STAGE
                 </button>
-                <span className="font-mono text-xs text-neutral-500">
+                <span className="font-mono text-xs text-ink-faint">
                   STAGE:{" "}
-                  <span className="text-[#d85d5d] font-semibold">
+                  <span className="text-brand-ink font-semibold">
                     {selectedStage}
                   </span>
                 </span>
               </div>
 
               <div className="space-y-2">
-                <div className="font-mono text-xs text-[#d85d5d] uppercase tracking-widest flex items-center gap-2">
+                <div className="font-mono text-xs text-brand-ink uppercase tracking-widest flex items-center gap-2">
                   <span>&gt; IDENTIFY_BOTTLENECK</span>
-                  <span className="w-1.5 h-3 bg-[#d85d5d] animate-pulse inline-block" />
+                  <span className="w-1.5 h-3 bg-brand animate-pulse inline-block" />
                 </div>
-                <h2 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+                <h2 className="text-2xl md:text-3xl font-extrabold text-ink tracking-tight">
                   Step 2: Select Core Operational Challenge
                 </h2>
-                <p className="text-sm text-neutral-400 max-w-xl">
+                <p className="text-sm text-ink-subtle max-w-xl">
                   Identify your primary bottleneck or growth priority to target
                   Madam T’s strategic response.
                 </p>
@@ -495,29 +518,29 @@ export default function SynergyDiagnostic({
                       whileHover={{ scale: 1.015, y: -2 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => handleChallengeSelect(opt.id)}
-                      className={`text-left p-5 rounded-xl border transition-all duration-200 group flex flex-col justify-between cursor-pointer ${
+                      className={`text-left p-4 sm:p-5 rounded-xl border transition-all duration-200 group flex flex-col justify-between cursor-pointer ${
                         isSelected
-                          ? "bg-[#18181b] border-[#d85d5d] shadow-lg shadow-[#d85d5d]/10"
-                          : "bg-[#111111] border-[#262626] hover:border-[#d85d5d]/60 hover:bg-[#141414]"
+                          ? "bg-surface-2 border-brand shadow-lg shadow-brand/10"
+                          : "bg-surface border-line hover:border-brand/60 hover:bg-surface-hover"
                       }`}
                     >
                       <div className="space-y-3">
-                        <div className="w-9 h-9 rounded-lg bg-[#18181b] border border-[#262626] flex items-center justify-center text-[#d85d5d] group-hover:border-[#d85d5d]/50 transition-colors">
+                        <div className="w-9 h-9 rounded-lg bg-surface-2 border border-line flex items-center justify-center text-brand-ink group-hover:border-brand/50 transition-colors">
                           <Icon className="w-4 h-4" />
                         </div>
                         <div>
-                          <h3 className="text-base font-bold text-white group-hover:text-[#d85d5d] transition-colors mb-1.5">
+                          <h3 className="text-base font-bold text-ink group-hover:text-brand-ink transition-colors mb-1.5">
                             {opt.title}
                           </h3>
-                          <p className="text-xs text-neutral-400 leading-relaxed">
+                          <p className="text-xs text-ink-subtle leading-relaxed">
                             {opt.description}
                           </p>
                         </div>
                       </div>
 
-                      <div className="mt-4 pt-3 border-t border-[#262626]/80 flex items-center justify-between text-[11px] font-mono text-neutral-500">
+                      <div className="mt-4 pt-3 border-t border-line/80 flex items-center justify-between text-[11px] font-mono text-ink-faint">
                         <span>TARGET_0{CHALLENGE_OPTIONS.indexOf(opt) + 1}</span>
-                        <span className="text-[#d85d5d] font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span className="text-brand-ink font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
                           RUN MATRIX &rarr;
                         </span>
                       </div>
@@ -541,14 +564,14 @@ export default function SynergyDiagnostic({
               {isCalculating ? (
                 /* Calculating Terminal Animation State */
                 <div className="py-16 text-center space-y-4">
-                  <div className="inline-flex p-4 rounded-2xl bg-[#111111] border border-[#262626] text-[#d85d5d] animate-spin">
+                  <div className="inline-flex p-4 rounded-2xl bg-surface border border-line text-brand-ink animate-spin">
                     <Cpu className="w-8 h-8" />
                   </div>
                   <div className="space-y-2">
-                    <div className="font-mono text-sm text-[#d85d5d] font-semibold animate-pulse">
+                    <div className="font-mono text-sm text-brand-ink font-semibold animate-pulse">
                       [ COMPILING DIAGNOSTIC MATRIX ... ]
                     </div>
-                    <p className="font-mono text-xs text-neutral-500">
+                    <p className="font-mono text-xs text-ink-faint">
                       Cross-referencing stage: &quot;{selectedStage}&quot; with operational target: &quot;{selectedChallenge}&quot;
                     </p>
                   </div>
@@ -557,10 +580,10 @@ export default function SynergyDiagnostic({
                 /* Output Diagnostic Recommendation */
                 <div className="space-y-6">
                   {/* Result Header Badge */}
-                  <div className="flex flex-wrap items-center justify-between gap-4 pb-2 border-b border-[#262626]">
+                  <div className="flex flex-wrap items-center justify-between gap-3 pb-2 border-b border-line">
                     <div className="flex items-center gap-2">
-                      <div className="w-2.5 h-2.5 rounded-full bg-[#d85d5d] animate-ping" />
-                      <span className="font-mono text-xs font-bold text-[#d85d5d] uppercase tracking-widest">
+                      <div className="w-2.5 h-2.5 rounded-full bg-brand animate-ping" />
+                      <span className="font-mono text-xs font-bold text-brand-ink uppercase tracking-widest">
                         DIAGNOSTIC RECOMMENDATION &bull; MADAM T
                       </span>
                     </div>
@@ -568,65 +591,65 @@ export default function SynergyDiagnostic({
                     <button
                       type="button"
                       onClick={handleReset}
-                      className="inline-flex items-center gap-1.5 text-xs font-mono text-neutral-400 hover:text-[#d85d5d] transition-colors cursor-pointer"
+                      className="inline-flex items-center gap-1.5 text-xs font-mono text-ink-subtle hover:text-brand-ink transition-colors cursor-pointer"
                     >
                       <RotateCcw className="w-3.5 h-3.5" /> RESET DIAGNOSTIC
                     </button>
                   </div>
 
                   {/* Executive Summary Card */}
-                  <div className="p-6 rounded-xl bg-[#111111] border border-[#262626] space-y-4 relative overflow-hidden">
-                    <div className="absolute top-0 left-0 w-1 h-full bg-[#d85d5d]" />
+                  <div className="p-4 sm:p-6 rounded-xl bg-surface border border-line space-y-4 relative overflow-hidden">
+                    <div className="absolute top-0 left-0 w-1 h-full bg-brand" />
 
                     <div className="flex items-start justify-between gap-4">
                       <div>
-                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#d85d5d]/10 border border-[#d85d5d]/20 text-[#d85d5d] text-[11px] font-mono font-semibold uppercase tracking-wider mb-2">
+                        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-brand/10 border border-brand/20 text-brand-ink text-[11px] font-mono font-semibold uppercase tracking-wider mb-2">
                           <Sparkles className="w-3 h-3" /> Customized Blueprint
                         </div>
-                        <h3 className="text-xl md:text-2xl font-extrabold text-white">
+                        <h3 className="text-xl md:text-2xl font-extrabold text-ink">
                           {currentRecommendation.recommendedScope}
                         </h3>
                       </div>
                     </div>
 
-                    <p className="text-sm text-neutral-300 leading-relaxed italic">
+                    <p className="text-sm text-ink-muted leading-relaxed italic">
                       &ldquo;{currentRecommendation.executiveSummary}&rdquo;
                     </p>
 
                     {/* Matrix Metrics Details */}
-                    <div className="grid md:grid-cols-2 gap-4 pt-4 border-t border-[#262626]">
-                      <div className="p-3.5 rounded-lg bg-[#18181b] border border-[#262626] space-y-1">
-                        <div className="text-[11px] font-mono uppercase text-neutral-400 font-medium">
+                    <div className="grid md:grid-cols-2 gap-4 pt-4 border-t border-line">
+                      <div className="p-3.5 rounded-lg bg-surface-2 border border-line space-y-1">
+                        <div className="text-[11px] font-mono uppercase text-ink-subtle font-medium">
                           Recommended Scope
                         </div>
-                        <div className="text-sm font-semibold text-white">
+                        <div className="text-sm font-semibold text-ink">
                           {currentRecommendation.recommendedScope}
                         </div>
                       </div>
 
-                      <div className="p-3.5 rounded-lg bg-[#18181b] border border-[#262626] space-y-1">
-                        <div className="text-[11px] font-mono uppercase text-neutral-400 font-medium">
+                      <div className="p-3.5 rounded-lg bg-surface-2 border border-line space-y-1">
+                        <div className="text-[11px] font-mono uppercase text-ink-subtle font-medium">
                           Dedicated Team Allocation
                         </div>
-                        <div className="text-sm font-semibold text-[#d85d5d]">
+                        <div className="text-sm font-semibold text-brand-ink">
                           {currentRecommendation.dedicatedTeam}
                         </div>
                       </div>
 
-                      <div className="p-3.5 rounded-lg bg-[#18181b] border border-[#262626] space-y-1">
-                        <div className="text-[11px] font-mono uppercase text-neutral-400 font-medium">
+                      <div className="p-3.5 rounded-lg bg-surface-2 border border-line space-y-1">
+                        <div className="text-[11px] font-mono uppercase text-ink-subtle font-medium">
                           Estimated Velocity
                         </div>
-                        <div className="text-sm font-semibold text-white">
+                        <div className="text-sm font-semibold text-ink">
                           {currentRecommendation.velocity}
                         </div>
                       </div>
 
-                      <div className="p-3.5 rounded-lg bg-[#18181b] border border-[#262626] space-y-1">
-                        <div className="text-[11px] font-mono uppercase text-neutral-400 font-medium">
+                      <div className="p-3.5 rounded-lg bg-surface-2 border border-line space-y-1">
+                        <div className="text-[11px] font-mono uppercase text-ink-subtle font-medium">
                           Impact & Value Focus
                         </div>
-                        <div className="text-xs text-neutral-300 leading-normal">
+                        <div className="text-xs text-ink-muted leading-normal">
                           {currentRecommendation.impactFocus}
                         </div>
                       </div>
@@ -634,7 +657,7 @@ export default function SynergyDiagnostic({
 
                     {/* Key Deliverables Bullet Points */}
                     <div className="space-y-2 pt-2">
-                      <div className="text-xs font-mono text-neutral-400 uppercase tracking-wider font-semibold">
+                      <div className="text-xs font-mono text-ink-subtle uppercase tracking-wider font-semibold">
                         Core System Deliverables:
                       </div>
                       <div className="grid sm:grid-cols-3 gap-2">
@@ -642,10 +665,10 @@ export default function SynergyDiagnostic({
                           (item, idx) => (
                             <div
                               key={idx}
-                              className="flex items-center gap-2 text-xs text-neutral-300 bg-[#0d0d0d] px-3 py-2 rounded border border-[#262626]"
+                              className="flex items-center gap-2 text-xs text-ink-muted bg-surface-deep px-3 py-2 rounded border border-line min-w-0"
                             >
-                              <CheckCircle2 className="w-3.5 h-3.5 text-[#d85d5d] shrink-0" />
-                              <span className="truncate">{item}</span>
+                              <CheckCircle2 className="w-3.5 h-3.5 text-brand-ink shrink-0" />
+                              <span className="truncate min-w-0">{item}</span>
                             </div>
                           )
                         )}
@@ -654,15 +677,15 @@ export default function SynergyDiagnostic({
                   </div>
 
                   {/* Prominent CTA Section */}
-                  <div className="p-6 rounded-xl bg-gradient-to-r from-[#18181b] via-[#111111] to-[#18181b] border border-[#d85d5d]/40 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl shadow-[#d85d5d]/5">
+                  <div className="p-4 sm:p-6 rounded-xl bg-gradient-to-r from-surface-2 via-surface to-surface-2 border border-brand/40 flex flex-col sm:flex-row items-center justify-between gap-5 sm:gap-6 shadow-xl shadow-brand/5">
                     <div className="space-y-1 text-center sm:text-left">
-                      <div className="flex items-center justify-center sm:justify-start gap-2 text-xs font-mono font-bold text-[#d85d5d] uppercase tracking-wider">
+                      <div className="flex items-center justify-center sm:justify-start gap-2 text-xs font-mono font-bold text-brand-ink uppercase tracking-wider">
                         <ShieldCheck className="w-4 h-4" /> Next Step &bull; Executive Strategy
                       </div>
-                      <h4 className="text-lg font-bold text-white">
+                      <h4 className="text-lg font-bold text-ink">
                         Ready to Execute This Architecture?
                       </h4>
-                      <p className="text-xs text-neutral-400 max-w-md">
+                      <p className="text-xs text-ink-subtle max-w-md">
                         Review this diagnostic with Madam T to lock in your custom sprint timeline and dedicated team allocation.
                       </p>
                     </div>
@@ -672,7 +695,7 @@ export default function SynergyDiagnostic({
                       whileHover={{ scale: 1.03 }}
                       whileTap={{ scale: 0.97 }}
                       onClick={handleBooking}
-                      className="w-full sm:w-auto px-6 py-4 rounded-xl bg-[#d85d5d] hover:bg-[#c44e4e] text-white font-bold text-sm tracking-wide transition-all shadow-lg shadow-[#d85d5d]/25 flex items-center justify-center gap-2.5 shrink-0 cursor-pointer group"
+                      className="w-full sm:w-auto px-6 py-4 rounded-xl bg-brand hover:bg-brand-hover text-on-brand font-bold text-sm tracking-wide transition-all shadow-lg shadow-brand/25 flex items-center justify-center gap-2.5 shrink-0 cursor-pointer group"
                     >
                       <Calendar className="w-4 h-4" />
                       <span>Book Strategy Call with Madam T</span>
@@ -687,12 +710,12 @@ export default function SynergyDiagnostic({
       </div>
 
       {/* Terminal Footer Info */}
-      <div className="px-6 py-3 bg-[#0a0a0a] border-t border-[#262626] flex items-center justify-between text-[11px] font-mono text-neutral-500">
+      <div className="px-4 sm:px-6 py-3 bg-surface-deep border-t border-line flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-[10px] sm:text-[11px] font-mono text-ink-faint">
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[#d85d5d]" />
+          <span className="w-2 h-2 rounded-full bg-brand" />
           <span>STATUS: READY</span>
         </div>
-        <div>MADAM T HOLDINGS &bull; ACCENT #d85d5d</div>
+        <div>MADAM HOLDINGS &bull; ACCENT #d85d5d</div>
       </div>
     </div>
   );

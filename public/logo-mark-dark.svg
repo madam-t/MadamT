@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Madam Holdings">
+  <title>Madam Holdings</title>
+  <!--
+    Madam Holdings brand mark, isolated from the wordmark — for avatars,
+    app icons, social profiles and any square placement.
+
+    For DARK backgrounds (black counter, matching the site's dark theme,
+    which is the default). Use logo-mark.svg on light backgrounds. The M is
+    an outlined path, so it carries no font dependency and stays crisp at
+    any size.
+  -->
+  <rect width="64" height="64" rx="14" fill="#d85d5d"/>
+  <path d="M14 46 H21 V26 L32 46 L43 26 V46 H50 V18 H40 L32 37 L24 18 H14 Z" fill="#000000"/>
+</svg>

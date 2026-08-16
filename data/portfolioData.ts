@@ -19,8 +19,7 @@ export interface PortfolioItem {
 export const PORTFOLIO_DATA: PortfolioItem[] = [
   {
     id: "medic-rush-2026",
-    title:
-      "Data Collection & Automation Lead — Round Table Hochland 154 (Medic Rush 2026)",
+    title: "Data Collection & Automation Lead",
     client: "Round Table Hochland 154",
     category: "Automation & Ops",
     summary:
@@ -45,7 +44,7 @@ export const PORTFOLIO_DATA: PortfolioItem[] = [
   },
   {
     id: "allan-gray-orbis",
-    title: "Cross-Border Program Delivery — Allan Gray Orbis Foundation",
+    title: "Cross-Border Program Delivery",
     client: "Allan Gray Orbis Foundation",
     category: "Project Management",
     summary:
@@ -67,7 +66,7 @@ export const PORTFOLIO_DATA: PortfolioItem[] = [
   },
   {
     id: "vumba-career-guidance",
-    title: "Logistics & Event Operations — Vumba Career Guidance Day",
+    title: "Logistics & Event Operations",
     client: "Vumba Career Guidance Day",
     category: "Project Management",
     summary:
@@ -95,7 +94,7 @@ export const PORTFOLIO_DATA: PortfolioItem[] = [
     client: "Ivoire Africa",
     category: "Web Engineering",
     summary:
-      "Developed a modern full-stack corporate web presence for established business consulting and cash loan operations.",
+      "Engineered a high-performance investment group platform designed for strategic investor positioning.",
     problem:
       "Established business consulting and cash loan firm needed modern web presence.",
     solution:
@@ -105,10 +104,10 @@ export const PORTFOLIO_DATA: PortfolioItem[] = [
       "Improved credibility for corporate lending",
     ],
     tags: [
-      "Full-Stack Web Development",
-      "Financial Services",
-      "Corporate Web Platform",
-      "Responsive Design",
+      "Web Engineering",
+      "Investment Platform",
+      "Brand Positioning",
+      "Next.js",
     ],
     imagePlaceholder: "ivoire-africa-platform",
   },
@@ -118,7 +117,7 @@ export const PORTFOLIO_DATA: PortfolioItem[] = [
     client: "Eshham Investment Group",
     category: "Web Engineering",
     summary:
-      "Engineered a high-performance investment group platform designed for strategic investor positioning.",
+      "Developed a modern full-stack corporate web presence for established business consulting and cash loan operations.",
     problem: "Startup investment group required dynamic launch platform.",
     solution:
       "High-performance custom web platform designed for investor positioning.",
@@ -127,10 +126,10 @@ export const PORTFOLIO_DATA: PortfolioItem[] = [
       "Enhanced brand positioning",
     ],
     tags: [
-      "Web Engineering",
-      "Investment Platform",
-      "Brand Positioning",
-      "Next.js",
+      "Full-Stack Web Development",
+      "Financial Services",
+      "Corporate Web Platform",
+      "Responsive Design",
     ],
     imagePlaceholder: "eshham-investment-group",
   },
