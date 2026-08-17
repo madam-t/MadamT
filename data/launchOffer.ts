@@ -10,8 +10,8 @@ export const LAUNCH_OFFER = {
   endsAt: "2026-08-31T23:59:59+02:00",
   endsOnLabel: "31 August 2026",
 
-  priceLocal: "N$3,500",
-  priceUsd: "US$210",
+  priceLocal: "N$4,000",
+  priceUsd: "US$250",
   priceNote: "once-off — no monthly website fee",
   turnaround: "Live in 7 days",
 
