@@ -2,6 +2,7 @@
 
 import React, { useCallback, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import {
   ArrowRight,
@@ -592,6 +593,12 @@ export default function Home() {
             >
               Booking
             </button>
+            <Link
+              href="/privacy"
+              className="hover:text-ink transition-colors cursor-pointer"
+            >
+              Privacy Policy
+            </Link>
           </div>
 
           <button
