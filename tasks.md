@@ -33,8 +33,8 @@ Official roadmap for **Madam T Holdings** ([madamholdings.com](https://madamhold
 - [ ] Create detailed Portfolio detail modals/pages for holding entities
 - [ ] Add interactive contact / strategic inquiry lead capture form
 
-### Phase 3: SEO, Performance & Deployment `[PENDING]`
-- [ ] Configure OpenGraph, Twitter Card metadata, and canonical domain links (`madamholdings.com`)
-- [ ] Add dynamic sitemap generation (`app/sitemap.ts`) and `robots.txt`
+### Phase 3: SEO, Performance & Deployment `[IN PROGRESS]`
+- [x] Configure OpenGraph, Twitter Card metadata, and canonical domain links (`madamholdings.com`)
+- [x] Add dynamic sitemap generation (`app/sitemap.ts`) and `robots.txt` (`app/robots.ts`)
 - [ ] Conduct Lighthouse performance & accessibility audits (targeting >95 score)
 - [ ] Deploy to production hosting (Vercel / Netlify / Custom Cloud) with HTTPS
