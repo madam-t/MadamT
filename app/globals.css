@@ -44,57 +44,55 @@
  * canvas is the lightest plane, each nested surface steps darker.
  */
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 
-  --canvas: #ffffff;
-  --surface-deep: #fafafa;
-  --surface: #f4f4f5;
-  --surface-2: #e9e9ec;
-  --surface-hover: #ebebed;
+  --canvas: #121212;
+  --surface-deep: #0d0d0d;
+  --surface: #181818;
+  --surface-2: #202020;
+  --surface-hover: #262626;
 
-  --line: #e4e4e7;
-  --line-strong: #d4d4d8;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.16);
 
-  --ink: #09090b;
-  --ink-muted: #3f3f46;
-  --ink-subtle: #52525b;
-  --ink-faint: #71717a;
+  --ink: #ffffff;
+  --ink-muted: #8e8e93;
+  --ink-subtle: #8e8e93;
+  --ink-faint: #636366;
 
-  --brand: #d85d5d;
-  --brand-hover: #c44e4e;
-  /* Darkened so brand-coloured *text* stays legible on light surfaces. */
-  --brand-ink: #b34343;
-  --on-brand: #ffffff;
+  --brand: #f6aea9;
+  --brand-hover: #f39b95;
+  --brand-ink: #f6aea9;
+  --on-brand: #121212;
 
-  --success: #15803d;
-  --warn: #b45309;
+  --success: #34c759;
+  --warn: #ff9f0a;
 }
 
-/* DARK — the original brand palette from tasks.md. */
 .dark {
   color-scheme: dark;
 
-  --canvas: #000000;
-  --surface-deep: #0a0a0a;
-  --surface: #111111;
-  --surface-2: #18181b;
-  --surface-hover: #141414;
+  --canvas: #121212;
+  --surface-deep: #0d0d0d;
+  --surface: #181818;
+  --surface-2: #202020;
+  --surface-hover: #262626;
 
-  --line: #262626;
-  --line-strong: #3f3f46;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.16);
 
   --ink: #ffffff;
-  --ink-muted: #d4d4d8;
-  --ink-subtle: #a1a1aa;
-  --ink-faint: #71717a;
+  --ink-muted: #8e8e93;
+  --ink-subtle: #8e8e93;
+  --ink-faint: #636366;
 
-  --brand: #d85d5d;
-  --brand-hover: #c44e4e;
-  --brand-ink: #d85d5d;
-  --on-brand: #ffffff;
+  --brand: #f6aea9;
+  --brand-hover: #f39b95;
+  --brand-ink: #f6aea9;
+  --on-brand: #121212;
 
-  --success: #22c55e;
-  --warn: #eab308;
+  --success: #34c759;
+  --warn: #ff9f0a;
 }
 
 /*

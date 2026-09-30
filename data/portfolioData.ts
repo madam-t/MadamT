@@ -42,8 +42,8 @@ export const PORTFOLIO_DATA: PortfolioItem[] = [
   },
   {
     id: "eshham-investment-group",
-    title: "Eshham Investment Group (eshham.com)",
-    client: "Eshham Investment Group",
+    title: "Eshham Group (eshham.com)",
+    client: "Eshham Group",
     category: "Web Engineering",
     summary:
       "Developed a modern full-stack corporate web presence for established business consulting and cash loan operations.",

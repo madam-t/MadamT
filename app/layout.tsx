@@ -17,9 +17,9 @@ const inter = Inter({
 
 const siteUrl = "https://madamholdings.com";
 const siteTitle =
-  "Madam Holdings | Strategic Ventures & Portfolio Management";
+  "Madam Holdings | High-Performance Web Architecture for Growing Brands";
 const siteDescription =
-  "Official digital portal for Madam Holdings (madamholdings.com). Spearheading high-growth investments, brand creation, and strategic enterprise management.";
+  "Web engineering for ambitious startups and SMEs. Enterprise-grade web infrastructure; engineered to convert, built to scale, and delivered without technical friction.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -28,9 +28,12 @@ export const metadata: Metadata = {
   keywords: [
     "Madam Holdings",
     "madamholdings.com",
-    "Venture Capital",
-    "Strategic Holdings",
-    "Portfolio Management",
+    "Web Engineering",
+    "Web Architecture",
+    "Digital Agency",
+    "Next.js Development",
+    "Startups",
+    "SMEs",
   ],
   alternates: {
     canonical: "/",
@@ -51,14 +54,9 @@ export const metadata: Metadata = {
 };
 
 /*
- * Runs before first paint so a stored "dark" preference never flashes the
- * light palette first. The server renders without the class (light is the
- * default), and this only adds it when the visitor has explicitly chosen dark.
- *
- * Must stay in step with getServerSnapshot in components/ThemeToggle.tsx,
- * which reports the same default during hydration.
+ * Dark by default for the sleek high-end agency aesthetic.
  */
-const themeBootstrap = `(function(){try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t="light"}var r=document.documentElement;r.classList.toggle("dark",t==="dark");r.style.colorScheme=t}catch(e){}})();`;
+const themeBootstrap = `(function(){try{var r=document.documentElement;r.classList.add("dark");r.style.colorScheme="dark"}catch(e){}})();`;
 
 export default function RootLayout({
   children,
@@ -68,7 +66,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} scroll-smooth`}
+      className={`${inter.variable} dark scroll-smooth`}
       suppressHydrationWarning
     >
       <head>

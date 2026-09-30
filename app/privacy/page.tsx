@@ -50,21 +50,21 @@ export default function PrivacyPolicyPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
           <Link
             href="/"
-            className="flex items-center gap-2 sm:gap-3 group cursor-pointer min-w-0"
+            className="flex items-center gap-2.5 sm:gap-3 cursor-pointer group text-left focus:outline-none"
+            aria-label="Madam Holdings Home"
           >
-            <div className="w-9 h-9 shrink-0 rounded-lg bg-brand flex items-center justify-center font-bold text-canvas text-xl shadow-lg shadow-brand/20">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 shrink-0 rounded-xl bg-[#d85d5d] flex items-center justify-center font-black text-white text-base sm:text-lg shadow-md shadow-[#d85d5d]/25 transition-transform group-hover:scale-105">
               M
             </div>
-            <span className="font-extrabold tracking-wider text-sm sm:text-base md:text-lg uppercase truncate min-w-0">
-              MADAM <span className="text-brand-ink">HOLDINGS</span>
+            <span className="font-extrabold tracking-wider text-sm sm:text-base md:text-lg uppercase text-white transition-colors">
+              MADAM <span className="text-[#d85d5d]">HOLDINGS</span>
             </span>
           </Link>
 
-          <div className="flex items-center gap-3 sm:gap-4">
-            <ThemeToggle />
+          <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="px-3.5 py-2 rounded-xl bg-surface border border-line hover:border-brand hover:text-brand-ink text-ink-muted font-mono text-xs transition-all flex items-center gap-1.5 cursor-pointer"
+              className="px-4 py-2 rounded-full border border-white/[0.12] bg-[#181818] hover:border-white/[0.25] text-white font-mono text-xs transition-all flex items-center gap-1.5 cursor-pointer"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Back to Home</span>
@@ -294,27 +294,32 @@ export default function PrivacyPolicyPage() {
 
       {/* 3. Footer */}
       <footer className="border-t border-line bg-canvas py-12 px-4 sm:px-6">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-ink-subtle">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-[#8E8E93]">
           <div className="flex items-center gap-3">
-            <div className="w-7 h-7 rounded bg-brand text-canvas font-bold flex items-center justify-center text-xs">
+            <div className="w-6 h-6 shrink-0 rounded-lg bg-[#d85d5d] flex items-center justify-center font-black text-white text-xs shadow-sm">
               M
             </div>
-            <span className="font-semibold text-ink-muted">
-              &copy; 2026 Madam T Holdings PTY Ltd. Registered in Namibia
+            <span className="font-semibold text-white tracking-wider uppercase">
+              MADAM <span className="text-[#d85d5d]">HOLDINGS</span>
             </span>
+            <span>&bull;</span>
+            <span>&copy; {new Date().getFullYear()} Madam T Holdings PTY Ltd. Registered in Namibia.</span>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-medium">
-            <Link href="/#portfolio" className="hover:text-ink transition-colors cursor-pointer">
-              Portfolio
+          <div className="flex flex-wrap items-center justify-center gap-6 font-medium">
+            <Link href="/#services" className="hover:text-white transition-colors cursor-pointer">
+              Services
             </Link>
-            <Link href="/#about" className="hover:text-ink transition-colors cursor-pointer">
+            <Link href="/#showcase" className="hover:text-white transition-colors cursor-pointer">
+              Showcase
+            </Link>
+            <Link href="/#about" className="hover:text-white transition-colors cursor-pointer">
               About
             </Link>
-            <Link href="/#booking" className="hover:text-ink transition-colors cursor-pointer">
-              Booking
+            <Link href="/#contact" className="hover:text-white transition-colors cursor-pointer">
+              Contact
             </Link>
-            <Link href="/privacy" className="text-brand-ink font-semibold hover:text-brand transition-colors cursor-pointer">
+            <Link href="/privacy" className="text-[#f6aea9] font-medium transition-colors cursor-pointer">
               Privacy Policy
             </Link>
           </div>
@@ -322,10 +327,10 @@ export default function PrivacyPolicyPage() {
           <button
             type="button"
             onClick={scrollToTop}
-            className="px-4 py-2 rounded-xl bg-surface border border-line hover:border-brand hover:text-brand-ink text-ink-muted font-mono text-xs transition-all flex items-center gap-2 cursor-pointer"
+            className="flex items-center gap-2 px-3.5 py-2 rounded-full border border-white/[0.08] hover:border-white/[0.2] hover:text-white transition-all cursor-pointer font-mono"
           >
             <span>Back to top</span>
-            <ArrowUp className="w-3.5 h-3.5" />
+            <ArrowUp className="w-3.5 h-3.5 text-[#f6aea9]" />
           </button>
         </div>
       </footer>
